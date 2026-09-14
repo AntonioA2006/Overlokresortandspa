@@ -22,6 +22,7 @@ class Reservation extends Model
         'guests_count',
         'price_total',
         'status',
+        'idempotency_key',
         'check_in_token',
         'token_revoked_at',
         'confirmed_at',

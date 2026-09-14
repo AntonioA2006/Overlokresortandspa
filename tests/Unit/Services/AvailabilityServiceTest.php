@@ -111,4 +111,37 @@ class AvailabilityServiceTest extends TestCase
             2,
         ));
     }
+
+    public function test_it_returns_available_rooms_for_specific_room_type(): void
+    {
+        $roomType = RoomType::factory()->create(['max_guests' => 4]);
+        $otherType = RoomType::factory()->create(['max_guests' => 4]);
+        $room = Room::factory()->for($roomType)->create(['status' => RoomStatus::Available]);
+        Room::factory()->for($otherType)->create(['status' => RoomStatus::Available]);
+
+        $results = $this->service->availableRoomsForType(
+            $roomType,
+            Carbon::today()->addDays(3),
+            Carbon::today()->addDays(6),
+            2,
+        );
+
+        $this->assertCount(1, $results);
+        $this->assertTrue($results->contains('id', $room->id));
+    }
+
+    public function test_available_rooms_for_type_returns_empty_when_capacity_exceeded(): void
+    {
+        $roomType = RoomType::factory()->create(['max_guests' => 2]);
+        Room::factory()->for($roomType)->create(['status' => RoomStatus::Available]);
+
+        $results = $this->service->availableRoomsForType(
+            $roomType,
+            Carbon::today()->addDays(3),
+            Carbon::today()->addDays(6),
+            3,
+        );
+
+        $this->assertTrue($results->isEmpty());
+    }
 }

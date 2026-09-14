@@ -19,6 +19,15 @@ class ReservationTokenService
         return $token;
     }
 
+    public function ensureActiveToken(Reservation $reservation): string
+    {
+        if ($reservation->isTokenActive()) {
+            return $reservation->check_in_token;
+        }
+
+        return $this->generate($reservation);
+    }
+
     public function revoke(Reservation $reservation): void
     {
         $reservation->forceFill([
@@ -29,5 +38,13 @@ class ReservationTokenService
     public function buildCheckUrl(string $token): string
     {
         return url('/reception/check/'.$token);
+    }
+
+    public function findActiveByToken(string $token): ?Reservation
+    {
+        return Reservation::query()
+            ->where('check_in_token', $token)
+            ->whereNull('token_revoked_at')
+            ->first();
     }
 }

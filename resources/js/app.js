@@ -11,4 +11,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.querySelector('[data-reception-token-input]')) {
         import('./reception.js');
     }
+
+    if (document.querySelector('[data-reservation-qr]')) {
+        import('./booking/confirmation.js').then(({ initReservationConfirmation }) => {
+            initReservationConfirmation();
+        });
+    }
 });

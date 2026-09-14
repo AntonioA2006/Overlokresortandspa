@@ -33,7 +33,11 @@ Route::prefix('guest')->name('guest.')->group(function () {
     Route::get('/reservations/rooms/{roomType:slug}', [ReservationController::class, 'showRoom'])->name('reservations.rooms.show');
 
     Route::middleware('auth')->group(function () {
-        Route::view('/reservations', 'guest.reservations.index')->name('reservations.index');
+        Route::get('/reservations/checkout/{room}', [ReservationController::class, 'checkout'])->name('reservations.checkout');
+        Route::post('/reservations', [ReservationController::class, 'store'])->name('reservations.store');
+        Route::get('/reservations', [ReservationController::class, 'index'])->name('reservations.index');
+        Route::post('/reservations/{reservation}/cancel', [ReservationController::class, 'cancel'])->name('reservations.cancel');
+        Route::get('/reservations/{reservation}', [ReservationController::class, 'show'])->name('reservations.show');
         Route::view('/notifications', 'guest.notifications.index')->name('notifications.index');
         Route::view('/support', 'guest.support.index')->name('support.index');
     });

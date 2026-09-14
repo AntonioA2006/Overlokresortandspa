@@ -12,6 +12,9 @@
 @import './booking/search.css';
 @import './booking/date-picker.css';
 @import './booking/results.css';
+@import './booking/room-detail.css';
+@import './booking/checkout.css';
+@import './booking/my-stays.css';
 @import './reservation.css';
 @import './reception.css';
 @import './chat.css';

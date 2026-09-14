@@ -2,6 +2,8 @@
 
 namespace App\Support;
 
+use App\Enums\ReservationStatus;
+use App\Models\Reservation;
 use Carbon\CarbonInterface;
 
 class ReservationPresentation
@@ -39,5 +41,34 @@ class ReservationPresentation
         return trans_choice('reservations.adults_label', $adults, ['count' => $adults])
             .' · '
             .trans_choice('reservations.children_label', $children, ['count' => $children]);
+    }
+
+    public static function statusLabel(ReservationStatus $status): string
+    {
+        return __('reservations.statuses.'.$status->value);
+    }
+
+    public static function statusEyebrow(ReservationStatus $status): string
+    {
+        return match ($status) {
+            ReservationStatus::Confirmed => __('reservations.reservation_confirmed'),
+            ReservationStatus::Pending => __('reservations.reservation_created'),
+            ReservationStatus::Cancelled => __('reservations.reservation_cancelled'),
+            default => self::statusLabel($status),
+        };
+    }
+
+    public static function statusBadgeClass(ReservationStatus $status): string
+    {
+        return 'badge--'.$status->value;
+    }
+
+    public static function guestsCountSummary(Reservation $reservation): string
+    {
+        return trans_choice(
+            'reservations.guests_count_label',
+            $reservation->guests_count,
+            ['count' => $reservation->guests_count],
+        );
     }
 }

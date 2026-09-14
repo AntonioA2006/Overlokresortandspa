@@ -1,0 +1,299 @@
+.room-detail__intro {
+    display: grid;
+    gap: var(--space-xl);
+    margin-bottom: var(--space-2xl);
+    padding-bottom: var(--space-xl);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.room-detail__back {
+    width: fit-content;
+    padding-block: 0.35rem;
+    border-bottom: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.8125rem;
+}
+
+.room-detail__back:hover,
+.room-detail__back:focus-visible {
+    border-bottom: 0;
+}
+
+.room-detail__summary {
+    display: grid;
+    gap: var(--space-sm);
+    max-width: 34rem;
+}
+
+.room-detail__dates {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    line-height: 1.15;
+}
+
+.room-detail__guests {
+    margin: 0;
+    color: var(--color-text-muted);
+}
+
+.room-detail__modify {
+    width: fit-content;
+    font-size: 0.8125rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-soft);
+    transition: color var(--transition-fast);
+}
+
+.room-detail__modify:hover,
+.room-detail__modify:focus-visible {
+    color: var(--color-text);
+}
+
+.room-detail__modify:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring);
+    border-radius: var(--radius-sm);
+}
+
+.room-detail__layout {
+    display: grid;
+    gap: var(--space-3xl);
+}
+
+.room-detail__gallery-main {
+    display: grid;
+    gap: var(--space-md);
+}
+
+.room-detail__figure {
+    margin: 0;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    background: var(--color-beige);
+}
+
+.room-detail__figure--lead {
+    aspect-ratio: 4 / 3;
+}
+
+.room-detail__figure:not(.room-detail__figure--lead) {
+    aspect-ratio: 16 / 10;
+}
+
+.room-detail__figure img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-slow);
+}
+
+.room-detail__figure:hover img {
+    transform: scale(1.015);
+}
+
+.room-detail__panel {
+    display: grid;
+    gap: var(--space-2xl);
+    align-content: start;
+}
+
+.room-detail__copy {
+    display: grid;
+    gap: var(--space-lg);
+    max-width: 40rem;
+}
+
+.room-detail__title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 500;
+    line-height: 1.05;
+}
+
+.room-detail__meta {
+    margin: 0;
+    font-size: 0.8125rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-soft);
+}
+
+.room-detail__description {
+    margin: 0;
+    color: var(--color-text-muted);
+    line-height: 1.85;
+    font-size: clamp(1rem, 2vw, 1.0625rem);
+}
+
+.room-detail__amenities-title {
+    margin: 0 0 var(--space-md);
+    font-size: 0.8125rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-text-soft);
+}
+
+.room-detail__amenities-list {
+    display: grid;
+    gap: 0.65rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    color: var(--color-text);
+}
+
+.room-detail__amenities-list li {
+    position: relative;
+    padding-left: 1.1rem;
+}
+
+.room-detail__amenities-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.65em;
+    width: 0.35rem;
+    height: 0.35rem;
+    border-radius: 50%;
+    background: var(--color-accent);
+}
+
+.room-detail__booking {
+    display: grid;
+    gap: var(--space-lg);
+    padding: var(--space-xl);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+    box-shadow: var(--shadow-sm);
+}
+
+.room-detail__booking-title {
+    margin: 0;
+    font-size: 0.8125rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-text-soft);
+}
+
+.room-detail__price {
+    display: grid;
+    gap: var(--space-md);
+}
+
+.room-detail__price-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-md);
+}
+
+.room-detail__price-row--total {
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--color-border);
+}
+
+.room-detail__price-label {
+    font-size: 0.875rem;
+    color: var(--color-text-soft);
+}
+
+.room-detail__price-value {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+}
+
+.room-detail__price-total {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 3vw, 2.25rem);
+    color: var(--color-text);
+}
+
+.room-detail__price-note {
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--color-text-soft);
+}
+
+.room-detail__cta {
+    width: 100%;
+}
+
+.room-detail__unavailable {
+    display: grid;
+    gap: var(--space-sm);
+    padding: var(--space-md);
+    border-radius: var(--radius-md);
+    background: var(--color-danger-soft);
+}
+
+.room-detail__unavailable-title {
+    margin: 0;
+    font-weight: 500;
+    color: var(--color-text);
+}
+
+.room-detail__unavailable-text {
+    margin: 0;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+}
+
+.room-detail__prompt {
+    display: grid;
+    gap: var(--space-sm);
+}
+
+.room-detail__prompt-title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+}
+
+.room-detail__prompt-text {
+    margin: 0;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+}
+
+@media (min-width: 1024px) {
+    .room-detail__layout {
+        grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+        align-items: start;
+        gap: clamp(3rem, 6vw, 5rem);
+    }
+
+    .room-detail__gallery-main {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .room-detail__figure--lead {
+        grid-column: 1 / -1;
+        aspect-ratio: 16 / 10;
+    }
+
+    .room-detail__panel {
+        position: sticky;
+        top: calc(var(--header-height) + var(--space-xl));
+    }
+}
+
+@media (max-width: 767px) {
+    .room-detail__booking {
+        padding: var(--space-lg);
+    }
+
+    .room-detail__figure:hover img {
+        transform: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .room-detail__figure img {
+        transition: none;
+    }
+}

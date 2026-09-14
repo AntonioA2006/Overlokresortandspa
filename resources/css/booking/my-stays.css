@@ -1,0 +1,193 @@
+.my-stays__intro {
+    display: grid;
+    gap: var(--space-md);
+    max-width: 42rem;
+    margin-bottom: var(--space-3xl);
+}
+
+.my-stays__title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(2.25rem, 5vw, 3.5rem);
+    line-height: 1.05;
+}
+
+.my-stays__lead {
+    margin: 0;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+}
+
+.my-stays__group + .my-stays__group {
+    margin-top: var(--space-3xl);
+}
+
+.my-stays__group-title {
+    margin: 0 0 var(--space-xl);
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+}
+
+.my-stays__list {
+    display: grid;
+    gap: var(--space-xl);
+}
+
+.my-stays__empty {
+    display: grid;
+    gap: var(--space-lg);
+    max-width: 36rem;
+    padding: var(--space-2xl);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+}
+
+.my-stays__empty-title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+}
+
+.my-stays__empty-lead {
+    margin: 0;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+}
+
+.my-stays-card {
+    display: grid;
+    gap: var(--space-lg);
+    padding: var(--space-lg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+}
+
+.my-stays-card__media {
+    overflow: hidden;
+    border-radius: var(--radius-md);
+    aspect-ratio: 16 / 10;
+}
+
+.my-stays-card__media img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.my-stays-card__body {
+    display: grid;
+    gap: var(--space-lg);
+}
+
+.my-stays-card__header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-md);
+}
+
+.my-stays-card__heading {
+    display: grid;
+    gap: 0.35rem;
+}
+
+.my-stays-card__title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+}
+
+.my-stays-card__title a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.my-stays-card__title a:hover,
+.my-stays-card__title a:focus-visible {
+    color: var(--color-accent);
+}
+
+.my-stays-card__code {
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--color-text-soft);
+}
+
+.my-stays-card__meta {
+    display: grid;
+    gap: var(--space-md);
+    margin: 0;
+}
+
+.my-stays-card__meta-item {
+    display: grid;
+    gap: 0.25rem;
+}
+
+.my-stays-card__meta-item dt {
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-soft);
+}
+
+.my-stays-card__meta-item dd {
+    margin: 0;
+}
+
+.my-stays-card__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-md);
+}
+
+.my-stays-card__qr-link {
+    font-size: 0.875rem;
+}
+
+.badge--confirmed,
+.badge--checked_in {
+    border-color: rgba(74, 107, 86, 0.35);
+    color: var(--color-accent);
+}
+
+.badge--pending {
+    border-color: rgba(160, 120, 60, 0.35);
+    color: #8a6530;
+}
+
+.badge--cancelled,
+.badge--no_show {
+    border-color: rgba(155, 68, 68, 0.35);
+    color: var(--color-danger);
+}
+
+.badge--checked_out {
+    border-color: var(--color-border-strong);
+    color: var(--color-text-soft);
+}
+
+.reservation-show__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-md);
+}
+
+.reservation-show__cancel-form {
+    margin: 0;
+}
+
+@media (min-width: 768px) {
+    .my-stays-card {
+        grid-template-columns: minmax(0, 14rem) minmax(0, 1fr);
+        align-items: start;
+        gap: var(--space-xl);
+        padding: var(--space-xl);
+    }
+}

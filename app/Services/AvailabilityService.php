@@ -64,6 +64,24 @@ class AvailabilityService
     }
 
     /**
+     * @return Collection<int, Room>
+     */
+    public function availableRoomsForType(
+        RoomType $roomType,
+        CarbonInterface $checkIn,
+        CarbonInterface $checkOut,
+        int $guests,
+    ): Collection {
+        if (! $roomType->is_active || $roomType->max_guests < $guests) {
+            return collect();
+        }
+
+        return $this->availableRooms($checkIn, $checkOut, $guests)
+            ->where('room_type_id', $roomType->id)
+            ->values();
+    }
+
+    /**
      * @return Collection<int, array{room_type: RoomType, available_count: int, rooms: Collection<int, Room>}>
      */
     public function availableRoomsGroupedByType(

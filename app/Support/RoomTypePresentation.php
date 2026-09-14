@@ -30,6 +30,42 @@ class RoomTypePresentation
         return null;
     }
 
+    /**
+     * @param  Collection<int, Room>  $rooms
+     * @return list<array{url: string, alt: string}>
+     */
+    public static function resolveGallery(Collection $rooms, RoomType $roomType): array
+    {
+        $photos = [];
+
+        foreach ($rooms as $room) {
+            foreach ($room->photos as $photo) {
+                $photos[] = [
+                    'url' => asset($photo->path),
+                    'alt' => $photo->alt_text ?: __('reservations.photo_alt', ['name' => $roomType->name]),
+                ];
+            }
+        }
+
+        if ($photos === []) {
+            return [self::fallbackPhoto($roomType)];
+        }
+
+        $unique = [];
+        $seenUrls = [];
+
+        foreach ($photos as $photo) {
+            if (in_array($photo['url'], $seenUrls, true)) {
+                continue;
+            }
+
+            $seenUrls[] = $photo['url'];
+            $unique[] = $photo;
+        }
+
+        return $unique;
+    }
+
     public static function fallbackPhoto(RoomType $roomType): array
     {
         return [

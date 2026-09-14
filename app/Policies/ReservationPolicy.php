@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Enums\ReservationStatus;
 use App\Enums\UserRole;
 use App\Models\Reservation;
 use App\Models\User;
@@ -35,7 +36,15 @@ class ReservationPolicy
 
     public function cancel(User $user, Reservation $reservation): bool
     {
-        return $this->update($user, $reservation);
+        if ($user->id !== $reservation->user_id || ! $user->isGuest()) {
+            return false;
+        }
+
+        if (! $reservation->status->canTransitionTo(ReservationStatus::Cancelled)) {
+            return false;
+        }
+
+        return $reservation->check_in_date->startOfDay()->gt(now()->startOfDay());
     }
 
     public function checkIn(User $user, Reservation $reservation): bool
