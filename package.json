@@ -1,0 +1,16 @@
+{
+    "$schema": "https://www.schemastore.org/package.json",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "build": "vite build",
+        "dev": "vite"
+    },
+    "devDependencies": {
+        "laravel-vite-plugin": "^3.1",
+        "vite": "^8.0.0"
+    },
+    "dependencies": {
+        "flatpickr": "^4.6.13"
+    }
+}

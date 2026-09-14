@@ -1,0 +1,101 @@
+:root {
+    /* Typography */
+    --font-display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+    --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --font-sans: var(--font-body);
+
+    /* Palette — luxury contemporary */
+    --color-bg: #f8f6f2;
+    --color-surface: #fffdf9;
+    --color-surface-elevated: #ffffff;
+    --color-text: #1c1b19;
+    --color-text-muted: #6f6860;
+    --color-text-soft: #958d84;
+    --color-inverse: #fffdf9;
+    --color-inverse-muted: rgba(255, 253, 249, 0.78);
+
+    --color-stone: #ddd6cc;
+    --color-beige: #f0ebe3;
+    --color-border: #e8e2d9;
+    --color-border-strong: #d8d0c4;
+
+    --color-accent: #b8955a;
+    --color-accent-soft: rgba(184, 149, 90, 0.14);
+    --color-accent-hover: #a6844d;
+
+    --color-success: #3f6f55;
+    --color-warning: #9a7340;
+    --color-danger: #9b4444;
+
+    /* Legacy aliases used across existing views */
+    --color-primary: var(--color-text);
+    --color-primary-dark: #121110;
+    --color-secondary: var(--color-accent);
+    --color-google-brand: #4285f4;
+    --color-overlay: rgba(18, 17, 16, 0.58);
+    --color-danger-soft: rgba(155, 68, 68, 0.06);
+    --color-success-soft: rgba(63, 111, 85, 0.08);
+
+    /* Breakpoints (reference values) */
+    --bp-mobile-max: 767px;
+    --bp-tablet-min: 768px;
+    --bp-header-mobile-max: 959px;
+    --bp-header-desktop-min: 960px;
+    --bp-desktop-min: 1024px;
+
+    /* Interaction */
+    --touch-target-min: 2.75rem;
+
+    /* Spacing */
+    --space-xs: 0.25rem;
+    --space-sm: 0.5rem;
+    --space-md: 1rem;
+    --space-lg: 1.5rem;
+    --space-xl: 2rem;
+    --space-2xl: 3rem;
+    --space-3xl: 5rem;
+
+    /* Backward compatibility */
+    --space-1: var(--space-xs);
+    --space-2: var(--space-sm);
+    --space-3: 0.75rem;
+    --space-4: var(--space-md);
+    --space-5: var(--space-lg);
+    --space-6: var(--space-xl);
+    --space-8: var(--space-2xl);
+
+    /* Layout */
+    --container-narrow: 42rem;
+    --container-width: 76rem;
+    --container-wide: 90rem;
+    --section-padding-y: clamp(4rem, 8vw, 7rem);
+    --header-height: 5rem;
+
+    /* Radius */
+    --radius-sm: 0.25rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 0.75rem;
+    --radius-pill: 999px;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px rgba(28, 27, 25, 0.04);
+    --shadow-md: 0 12px 32px rgba(28, 27, 25, 0.08);
+    --shadow-lg: 0 24px 48px rgba(28, 27, 25, 0.1);
+    --shadow-header: 0 1px 0 rgba(28, 27, 25, 0.06);
+
+    /* Motion */
+    --transition-fast: 160ms ease;
+    --transition-smooth: 320ms cubic-bezier(0.22, 1, 0.36, 1);
+    --transition-slow: 520ms cubic-bezier(0.22, 1, 0.36, 1);
+
+    /* Focus */
+    --focus-ring: 0 0 0 2px var(--color-surface), 0 0 0 4px rgba(184, 149, 90, 0.45);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    :root {
+        --transition-fast: 1ms;
+        --transition-smooth: 1ms;
+        --transition-slow: 1ms;
+    }
+}

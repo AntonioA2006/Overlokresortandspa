@@ -1,0 +1,10 @@
+/* Chat module styles — to be expanded in upcoming iterations. */
+
+.chat-window {
+    display: grid;
+    grid-template-rows: 1fr auto;
+    min-height: 24rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+}

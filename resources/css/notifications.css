@@ -1,0 +1,10 @@
+/* Notifications module styles — to be expanded in upcoming iterations. */
+
+.notification-item {
+    padding: var(--space-4);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.notification-item.is-unread {
+    background: var(--color-success-soft);
+}

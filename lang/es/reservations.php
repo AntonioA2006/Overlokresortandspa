@@ -1,0 +1,85 @@
+<?php
+
+return [
+
+    'find_your_stay' => 'Encuentra tu estancia',
+    'search_intro' => 'Selecciona tus fechas y huéspedes para descubrir las habitaciones disponibles.',
+    'check_in' => 'Llegada',
+    'check_out' => 'Salida',
+    'adults' => 'Adultos',
+    'children' => 'Niños',
+    'decrease_adults' => 'Disminuir adultos',
+    'increase_adults' => 'Aumentar adultos',
+    'decrease_children' => 'Disminuir niños',
+    'increase_children' => 'Aumentar niños',
+    'check_availability' => 'Ver disponibilidad',
+    'search_cta' => 'Buscar disponibilidad',
+    'searching' => 'Buscando disponibilidad…',
+
+    'guests_field' => 'Huéspedes',
+    'guests_select' => 'Seleccionar huéspedes',
+    'js_adult_one' => ':count adulto',
+    'js_adult_other' => ':count adultos',
+    'js_child_zero' => ':count niños',
+    'js_child_one' => ':count niño',
+    'js_child_other' => ':count niños',
+
+    'page_title_search' => 'Buscar habitaciones | Overlook Resort & Spa',
+    'meta_search' => 'Consulta disponibilidad de estancias en Overlook Resort & Spa.',
+
+    'availability' => 'Disponibilidad',
+    'results_stay_title' => 'Tu estancia',
+    'available_rooms' => 'Habitaciones disponibles',
+    'no_rooms_title' => 'No encontramos habitaciones disponibles',
+    'no_rooms_lead' => 'No encontramos habitaciones disponibles para estas fechas.',
+    'modify_search' => 'Modificar búsqueda',
+    'empty_message' => 'Prueba con otras fechas y estaremos encantados de recibirte.',
+    'change_dates' => 'Cambiar fechas',
+    'view_room' => 'Ver habitación',
+    'photo_alt' => ':name — Overlook Resort & Spa',
+    'nights_label' => '{1} :count noche|[2,*] :count noches',
+
+    'page_title_results' => 'Habitaciones disponibles | Overlook Resort & Spa',
+    'meta_results' => 'Resultados de disponibilidad para tu estancia en Overlook Resort & Spa.',
+
+    'unit_available' => 'unidad disponible',
+    'units_available' => 'unidades disponibles',
+    'up_to_guests' => 'Hasta :count huéspedes',
+    'from_price' => 'Desde',
+    'per_night' => 'por noche',
+    'detail_coming_soon' => 'Detalle próximamente',
+    'results_robots' => 'noindex, nofollow',
+
+    'adults_label' => '{1} :count adulto|[2,*] :count adultos',
+    'children_label' => '{0} :count niños|{1} :count niño|[2,*] :count niños',
+
+    'months_short' => [
+        1 => 'enero',
+        2 => 'febrero',
+        3 => 'marzo',
+        4 => 'abril',
+        5 => 'mayo',
+        6 => 'junio',
+        7 => 'julio',
+        8 => 'agosto',
+        9 => 'septiembre',
+        10 => 'octubre',
+        11 => 'noviembre',
+        12 => 'diciembre',
+    ],
+
+    'validation' => [
+        'check_in_required' => 'Selecciona tu fecha de llegada.',
+        'check_in_past' => 'La fecha de llegada no puede ser anterior a hoy.',
+        'check_out_required' => 'Selecciona tu fecha de salida.',
+        'check_out_after_check_in' => 'La fecha de salida debe ser posterior a la llegada.',
+        'adults_required' => 'Indica al menos un adulto.',
+        'adults_min' => 'Debe haber al menos un adulto.',
+        'children_min' => 'El número de niños no puede ser negativo.',
+        'guests_min' => 'Debe haber al menos un huésped.',
+        'guests_max' => 'El número total de huéspedes no puede exceder :max.',
+        'check_out_after_check_in_client' => 'La salida debe ser posterior a la llegada.',
+        'guests_max_client' => 'El total de huéspedes no puede exceder :max.',
+    ],
+
+];

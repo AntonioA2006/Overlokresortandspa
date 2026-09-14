@@ -1,0 +1,45 @@
+body {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4,
+.display-title {
+    font-family: var(--font-display);
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    line-height: 1.08;
+    color: var(--color-text);
+}
+
+.eyebrow {
+    display: inline-block;
+    margin-bottom: var(--space-md);
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-text-soft);
+}
+
+.lead {
+    font-size: clamp(1.05rem, 1.8vw, 1.2rem);
+    line-height: 1.7;
+    color: var(--color-text-muted);
+}
+
+.text-muted {
+    color: var(--color-text-muted);
+}
+
+.text-soft {
+    color: var(--color-text-soft);
+}

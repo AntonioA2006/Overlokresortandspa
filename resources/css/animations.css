@@ -1,0 +1,71 @@
+[data-reveal],
+[data-fade],
+[data-lift],
+[data-image-reveal] {
+    opacity: 0;
+}
+
+[data-reveal].is-visible,
+[data-fade].is-visible,
+[data-lift].is-visible {
+    opacity: 1;
+}
+
+[data-reveal] {
+    transform: translateY(1.25rem);
+    transition:
+        opacity var(--transition-slow),
+        transform var(--transition-slow);
+}
+
+[data-reveal].is-visible {
+    transform: translateY(0);
+}
+
+[data-lift] {
+    transform: translateY(0.75rem);
+    transition:
+        opacity var(--transition-smooth),
+        transform var(--transition-smooth);
+}
+
+[data-lift].is-visible {
+    transform: translateY(0);
+}
+
+[data-fade] {
+    transition: opacity var(--transition-smooth);
+}
+
+[data-image-reveal] {
+    overflow: hidden;
+}
+
+[data-image-reveal] img,
+[data-image-reveal] .image-reveal__media {
+    transform: scale(1.04);
+    transition: transform var(--transition-slow), opacity var(--transition-slow);
+    opacity: 0.92;
+}
+
+[data-image-reveal].is-visible img,
+[data-image-reveal].is-visible .image-reveal__media {
+    transform: scale(1);
+    opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    [data-reveal],
+    [data-fade],
+    [data-lift],
+    [data-image-reveal] {
+        opacity: 1;
+        transform: none;
+    }
+
+    [data-image-reveal] img,
+    [data-image-reveal] .image-reveal__media {
+        transform: none;
+        opacity: 1;
+    }
+}

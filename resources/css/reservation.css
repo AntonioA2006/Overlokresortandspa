@@ -1,0 +1,8 @@
+/* Reservation module styles — to be expanded in upcoming iterations. */
+
+.booking-panel {
+    padding: var(--space-5);
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+}

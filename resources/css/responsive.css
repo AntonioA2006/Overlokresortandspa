@@ -1,0 +1,26 @@
+@media (max-width: 959px) {
+    .hero {
+        min-height: 80vh;
+        padding-bottom: var(--space-2xl);
+    }
+
+    .site-footer__inner {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 767px) {
+    .container,
+    .container--narrow,
+    .container--wide {
+        width: min(calc(100% - 1.5rem), var(--container-width));
+    }
+
+    .btn-group {
+        width: 100%;
+    }
+
+    .btn-group .btn {
+        flex: 1 1 auto;
+    }
+}

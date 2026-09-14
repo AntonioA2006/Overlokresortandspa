@@ -1,0 +1,85 @@
+<?php
+
+return [
+
+    'find_your_stay' => 'Find your stay',
+    'search_intro' => 'Select your dates and guests to discover available rooms.',
+    'check_in' => 'Check-in',
+    'check_out' => 'Check-out',
+    'adults' => 'Adults',
+    'children' => 'Children',
+    'decrease_adults' => 'Decrease adults',
+    'increase_adults' => 'Increase adults',
+    'decrease_children' => 'Decrease children',
+    'increase_children' => 'Increase children',
+    'check_availability' => 'Check availability',
+    'search_cta' => 'Check availability',
+    'searching' => 'Searching availability…',
+
+    'guests_field' => 'Guests',
+    'guests_select' => 'Select guests',
+    'js_adult_one' => ':count adult',
+    'js_adult_other' => ':count adults',
+    'js_child_zero' => ':count children',
+    'js_child_one' => ':count child',
+    'js_child_other' => ':count children',
+
+    'page_title_search' => 'Find a room | Overlook Resort & Spa',
+    'meta_search' => 'Check room availability for your stay at Overlook Resort & Spa.',
+
+    'availability' => 'Availability',
+    'results_stay_title' => 'Your stay',
+    'available_rooms' => 'Available rooms',
+    'no_rooms_title' => 'No rooms available',
+    'no_rooms_lead' => 'We couldn\'t find available rooms for these dates.',
+    'modify_search' => 'Modify search',
+    'empty_message' => 'Try different dates and we would be delighted to welcome you.',
+    'change_dates' => 'Change dates',
+    'view_room' => 'View room',
+    'photo_alt' => ':name — Overlook Resort & Spa',
+    'nights_label' => '{1} :count night|[2,*] :count nights',
+
+    'page_title_results' => 'Available rooms | Overlook Resort & Spa',
+    'meta_results' => 'Availability results for your stay at Overlook Resort & Spa.',
+
+    'unit_available' => 'unit available',
+    'units_available' => 'units available',
+    'up_to_guests' => 'Up to :count guests',
+    'from_price' => 'From',
+    'per_night' => 'per night',
+    'detail_coming_soon' => 'Details coming soon',
+    'results_robots' => 'noindex, nofollow',
+
+    'adults_label' => '{1} :count adult|[2,*] :count adults',
+    'children_label' => '{0} :count children|{1} :count child|[2,*] :count children',
+
+    'months_short' => [
+        1 => 'January',
+        2 => 'February',
+        3 => 'March',
+        4 => 'April',
+        5 => 'May',
+        6 => 'June',
+        7 => 'July',
+        8 => 'August',
+        9 => 'September',
+        10 => 'October',
+        11 => 'November',
+        12 => 'December',
+    ],
+
+    'validation' => [
+        'check_in_required' => 'Select your check-in date.',
+        'check_in_past' => 'The check-in date cannot be before today.',
+        'check_out_required' => 'Select your check-out date.',
+        'check_out_after_check_in' => 'The check-out date must be after the check-in date.',
+        'adults_required' => 'Please indicate at least one adult.',
+        'adults_min' => 'There must be at least one adult.',
+        'children_min' => 'The number of children cannot be negative.',
+        'guests_min' => 'There must be at least one guest.',
+        'guests_max' => 'The total number of guests cannot exceed :max.',
+        'check_out_after_check_in_client' => 'Check-out must be after check-in.',
+        'guests_max_client' => 'The total number of guests cannot exceed :max.',
+    ],
+
+];

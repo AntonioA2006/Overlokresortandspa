@@ -1,0 +1,337 @@
+.landing-hero {
+    position: relative;
+    display: grid;
+    align-items: end;
+    min-height: clamp(36rem, 90vh, 56rem);
+    padding:
+        calc(var(--header-height) + var(--space-2xl))
+        0
+        clamp(var(--space-2xl), 6vw, var(--space-3xl));
+    color: var(--color-inverse);
+    overflow: hidden;
+}
+
+.landing-hero__media {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+}
+
+.landing-hero__image-wrap {
+    width: 100%;
+    height: 100%;
+    will-change: transform;
+}
+
+.landing-hero__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.04);
+}
+
+.landing-hero__overlay {
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(180deg, rgba(18, 17, 16, 0.28) 0%, rgba(18, 17, 16, 0.18) 35%, rgba(18, 17, 16, 0.72) 100%),
+        linear-gradient(90deg, rgba(18, 17, 16, 0.42) 0%, transparent 55%);
+}
+
+.landing-hero__content {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    gap: var(--space-2xl);
+}
+
+.landing-hero__copy {
+    max-width: 40rem;
+}
+
+.landing-hero__title {
+    margin: 0 0 var(--space-lg);
+    font-size: clamp(2.75rem, 7vw, 5.25rem);
+    line-height: 0.98;
+    color: var(--color-inverse);
+}
+
+.landing-hero__text {
+    margin: 0 0 var(--space-xl);
+    max-width: 34rem;
+    font-size: clamp(1rem, 2vw, 1.125rem);
+    line-height: 1.75;
+    color: var(--color-inverse-muted);
+}
+
+.landing-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+}
+
+.landing-hero__link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 3rem;
+    padding: 0.75rem 1.25rem;
+    border: 1px solid rgba(255, 253, 249, 0.42);
+    border-radius: var(--radius-pill);
+    color: var(--color-inverse);
+    font-size: 0.8125rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition:
+        border-color var(--transition-fast),
+        background var(--transition-fast);
+}
+
+.landing-hero__link:hover {
+    border-color: var(--color-inverse);
+    background: rgba(255, 253, 249, 0.08);
+}
+
+.landing-hero__link:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring);
+}
+
+.landing-hero__booking {
+    width: min(100%, 72rem);
+}
+
+.landing-section {
+    padding: var(--section-padding-y) 0;
+}
+
+.landing-section--soft {
+    background: var(--color-beige);
+}
+
+.landing-editorial {
+    display: grid;
+    gap: var(--space-2xl);
+    align-items: center;
+}
+
+.landing-editorial__media {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    aspect-ratio: 4 / 5;
+}
+
+.landing-editorial__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.landing-editorial__content {
+    max-width: 34rem;
+}
+
+.landing-editorial__title {
+    margin: 0 0 var(--space-md);
+    font-size: clamp(2rem, 4vw, 3.25rem);
+}
+
+.landing-editorial__text {
+    margin: 0 0 var(--space-xl);
+    color: var(--color-text-muted);
+    line-height: 1.8;
+}
+
+.landing-rooms {
+    display: grid;
+    gap: var(--space-2xl);
+}
+
+.landing-rooms__intro {
+    max-width: 38rem;
+}
+
+.landing-rooms__list {
+    display: grid;
+    gap: var(--space-xl);
+}
+
+.landing-room {
+    display: grid;
+    gap: var(--space-xl);
+    align-items: center;
+}
+
+.landing-room__media {
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    aspect-ratio: 16 / 10;
+}
+
+.landing-room__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-slow);
+}
+
+.landing-room:hover .landing-room__media img {
+    transform: scale(1.03);
+}
+
+.landing-room__eyebrow {
+    display: block;
+    margin-bottom: var(--space-sm);
+}
+
+.landing-room__title {
+    margin: 0 0 var(--space-md);
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+}
+
+.landing-room__text {
+    margin: 0 0 var(--space-lg);
+    color: var(--color-text-muted);
+    line-height: 1.75;
+}
+
+.landing-room__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    color: var(--color-text-soft);
+    font-size: 0.875rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.landing-spa {
+    display: grid;
+    gap: var(--space-2xl);
+    align-items: center;
+}
+
+.landing-spa__media {
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    aspect-ratio: 5 / 4;
+}
+
+.landing-spa__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.landing-spa__features {
+    display: grid;
+    gap: var(--space-lg);
+    margin: var(--space-xl) 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.landing-spa__features li {
+    position: relative;
+    padding-left: 1.25rem;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+}
+
+.landing-spa__features li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.75rem;
+    width: 0.45rem;
+    height: 1px;
+    background: var(--color-accent);
+}
+
+.landing-final-cta {
+    position: relative;
+    padding: clamp(5rem, 10vw, 8rem) 0;
+    overflow: hidden;
+    color: var(--color-inverse);
+    text-align: center;
+}
+
+.landing-final-cta__media {
+    position: absolute;
+    inset: 0;
+}
+
+.landing-final-cta__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.landing-final-cta__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(18, 17, 16, 0.58);
+}
+
+.landing-final-cta__content {
+    position: relative;
+    z-index: 1;
+    max-width: 40rem;
+    margin: 0 auto;
+}
+
+.landing-final-cta__title {
+    margin: 0 0 var(--space-md);
+    font-size: clamp(2.25rem, 5vw, 3.75rem);
+    color: var(--color-inverse);
+}
+
+.landing-final-cta__text {
+    margin: 0 0 var(--space-xl);
+    color: var(--color-inverse-muted);
+    line-height: 1.75;
+}
+
+.landing-final-cta .booking-bar__inner {
+    text-align: left;
+}
+
+@media (min-width: 768px) {
+    .landing-editorial,
+    .landing-room,
+    .landing-spa {
+        grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    }
+
+    .landing-editorial--reverse .landing-editorial__media,
+    .landing-room--reverse .landing-room__media,
+    .landing-spa--reverse .landing-spa__media {
+        order: 2;
+    }
+
+    .landing-rooms__list {
+        gap: var(--space-3xl);
+    }
+}
+
+@media (max-width: 767px) {
+    .landing-hero__actions {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .landing-hero__link {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .landing-hero__booking {
+        margin-top: var(--space-md);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .landing-room:hover .landing-room__media img {
+        transform: none;
+    }
+}
