@@ -26,6 +26,42 @@ class GoogleOAuthTest extends TestCase
         $response->assertSee(route('auth.google.redirect'), false);
     }
 
+    public function test_google_redirect_uses_configured_redirect_uri(): void
+    {
+        $response = $this->get(route('auth.google.redirect'));
+
+        $response->assertRedirect();
+        $this->assertStringContainsString(
+            'redirect_uri='.urlencode(config('services.google.redirect')),
+            (string) $response->headers->get('Location'),
+        );
+    }
+
+    public function test_google_redirect_stores_oauth_state_in_session(): void
+    {
+        $response = $this->get(route('auth.google.redirect'));
+
+        $response->assertRedirect();
+        preg_match('/state=([^&]+)/', (string) $response->headers->get('Location'), $matches);
+
+        $this->assertNotEmpty($matches[1] ?? null);
+        $this->assertSame($matches[1], session('state'));
+    }
+
+    public function test_google_callback_rejects_mismatched_oauth_state(): void
+    {
+        $this->get(route('auth.google.redirect'));
+
+        $response = $this->get(route('auth.google.callback', [
+            'state' => 'invalid-state-value',
+            'code' => 'fake-code',
+        ]));
+
+        $response->assertRedirect(route('login'));
+        $response->assertSessionHas('auth_error', 'La sesión de autenticación expiró. Intenta nuevamente.');
+        $this->assertGuest();
+    }
+
     public function test_google_callback_creates_guest_and_logs_in(): void
     {
         $googleUser = $this->makeGoogleSocialiteUser([

@@ -18,8 +18,9 @@ Route::get('/locale/{locale}', [LocaleController::class, 'switch'])->name('local
 Route::middleware('guest')->group(function () {
     Route::get('/login', [LoginController::class, 'create'])->name('login');
     Route::get('/auth/google/redirect', [GoogleAuthController::class, 'redirect'])->name('auth.google.redirect');
-    Route::get('/auth/google/callback', [GoogleAuthController::class, 'callback'])->name('auth.google.callback');
 });
+
+Route::get('/auth/google/callback', [GoogleAuthController::class, 'callback'])->name('auth.google.callback');
 
 Route::post('/logout', [LogoutController::class, 'destroy'])
     ->middleware('auth')

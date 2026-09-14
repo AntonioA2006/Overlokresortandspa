@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\EnsureCanonicalAppUrl;
 use App\Http\Middleware\EnsureUserRole;
 use App\Http\Middleware\SetLocale;
 use Illuminate\Foundation\Application;
@@ -17,6 +18,10 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->alias([
             'role' => EnsureUserRole::class,
+        ]);
+
+        $middleware->web(prepend: [
+            EnsureCanonicalAppUrl::class,
         ]);
 
         $middleware->web(append: [

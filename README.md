@@ -31,12 +31,26 @@ php artisan serve
 http://localhost:8000/auth/google/callback
 ```
 
+Origen autorizado de JavaScript:
+
+```
+http://localhost:8000
+```
+
+En desarrollo local abre la app siempre con `http://localhost:8000` (no uses `127.0.0.1`).
+
+Si usas Windows y el intercambio de token falla por SSL, descarga el bundle de certificados:
+
+```bash
+curl -fsSL -o storage/app/cacert.pem https://curl.se/ca/cacert.pem
+```
+
 4. Configura `.env`:
 
 ```env
 GOOGLE_CLIENT_ID=tu-client-id
 GOOGLE_CLIENT_SECRET=tu-client-secret
-GOOGLE_REDIRECT_URI="${APP_URL}/auth/google/callback"
+GOOGLE_REDIRECT_URI=http://localhost:8000/auth/google/callback
 ```
 
 5. Visita `/login` y usa **Continuar con Google**.
