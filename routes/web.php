@@ -1,17 +1,24 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Admin\RoomController as AdminRoomController;
+use App\Http\Controllers\Admin\RoomTypeController as AdminRoomTypeController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Api\ConversationController as ApiConversationController;
 use App\Http\Controllers\Api\NotificationController as ApiNotificationController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\GoogleAuthController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Guest\HomeController;
 use App\Http\Controllers\Guest\NotificationController;
 use App\Http\Controllers\Guest\ReservationController;
 use App\Http\Controllers\Guest\RoomCatalogController;
 use App\Http\Controllers\Guest\SupportController;
 use App\Http\Controllers\LocaleController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Reception\CheckInController;
 use App\Http\Controllers\Reception\DashboardController as ReceptionDashboardController;
 use App\Http\Controllers\Support\DashboardController as SupportDashboardController;
@@ -26,6 +33,16 @@ Route::middleware('guest')->group(function () {
     Route::post('/login', [LoginController::class, 'store'])
         ->middleware('throttle:login')
         ->name('login.store');
+    Route::get('/register', [RegisterController::class, 'create'])->name('register');
+    Route::post('/register', [RegisterController::class, 'store'])
+        ->middleware('throttle:register')
+        ->name('register.store');
+    Route::get('/forgot-password', [ForgotPasswordController::class, 'create'])->name('password.request');
+    Route::post('/forgot-password', [ForgotPasswordController::class, 'store'])
+        ->middleware('throttle:password-email')
+        ->name('password.email');
+    Route::get('/reset-password/{token}', [ResetPasswordController::class, 'create'])->name('password.reset');
+    Route::post('/reset-password', [ResetPasswordController::class, 'store'])->name('password.update');
     Route::get('/auth/google/redirect', [GoogleAuthController::class, 'redirect'])->name('auth.google.redirect');
 });
 
@@ -34,6 +51,12 @@ Route::get('/auth/google/callback', [GoogleAuthController::class, 'callback'])->
 Route::post('/logout', [LogoutController::class, 'destroy'])
     ->middleware('auth')
     ->name('logout');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::post('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password');
+});
 
 Route::prefix('guest')->name('guest.')->group(function () {
     Route::get('/rooms', [RoomCatalogController::class, 'index'])->name('rooms.index');
@@ -83,4 +106,21 @@ Route::middleware(['auth', 'role:support,admin'])->prefix('support')->name('supp
 
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
+
+    Route::get('/rooms', [AdminRoomController::class, 'index'])->name('rooms.index');
+    Route::get('/rooms/create', [AdminRoomController::class, 'create'])->name('rooms.create');
+    Route::post('/rooms', [AdminRoomController::class, 'store'])->name('rooms.store');
+    Route::get('/rooms/{room}/edit', [AdminRoomController::class, 'edit'])->name('rooms.edit');
+    Route::post('/rooms/{room}', [AdminRoomController::class, 'update'])->name('rooms.update');
+    Route::post('/rooms/{room}/status', [AdminRoomController::class, 'updateStatus'])->name('rooms.status');
+
+    Route::get('/users', [AdminUserController::class, 'index'])->name('users.index');
+    Route::get('/users/create', [AdminUserController::class, 'create'])->name('users.create');
+    Route::post('/users', [AdminUserController::class, 'store'])->name('users.store');
+    Route::get('/users/{user}/edit', [AdminUserController::class, 'edit'])->name('users.edit');
+    Route::post('/users/{user}', [AdminUserController::class, 'update'])->name('users.update');
+
+    Route::get('/room-types', [AdminRoomTypeController::class, 'index'])->name('room-types.index');
+    Route::get('/room-types/{roomType}/edit', [AdminRoomTypeController::class, 'edit'])->name('room-types.edit');
+    Route::post('/room-types/{roomType}', [AdminRoomTypeController::class, 'update'])->name('room-types.update');
 });

@@ -11,6 +11,8 @@
 @section('content')
     <section class="section admin-page">
         <div class="container stack">
+            @include('admin.partials.nav')
+
             <header class="section__header" data-reveal>
                 <span class="eyebrow">{{ $hotelName }}</span>
                 <h1 class="section__title">{{ __('admin.heading') }}</h1>
@@ -24,6 +26,9 @@
             </div>
 
             <div class="reception-toolbar" data-reveal>
+                <a class="btn btn--secondary" href="{{ route('admin.rooms.index') }}">{{ __('admin.manage_rooms') }}</a>
+                <a class="btn btn--secondary" href="{{ route('admin.users.index') }}">{{ __('admin.manage_users') }}</a>
+                <a class="btn btn--secondary" href="{{ route('admin.room-types.index') }}">{{ __('admin.manage_rates') }}</a>
                 <a class="btn btn--secondary" href="{{ route('reception.dashboard') }}">{{ __('admin.open_reception') }}</a>
                 <a class="btn btn--secondary" href="{{ route('support.dashboard') }}">{{ __('admin.open_support') }}</a>
             </div>

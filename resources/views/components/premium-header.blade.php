@@ -84,19 +84,21 @@
                     </a>
                 @endif
 
-                <div class="premium-header__user" aria-label="{{ $user->name }}">
-                    @if ($user->avatar)
-                        <img
-                            src="{{ $user->avatar }}"
-                            alt=""
-                            class="premium-header__avatar"
-                        >
-                    @else
-                        <span class="premium-header__avatar-fallback" aria-hidden="true">
-                            {{ strtoupper(substr($user->name, 0, 1)) }}
-                        </span>
-                    @endif
-                    <span class="premium-header__name">{{ $user->name }}</span>
+                <div class="premium-header__user">
+                    <a href="{{ route('profile.edit') }}" class="premium-header__account-link" aria-label="{{ $user->name }}">
+                        @if ($user->avatar)
+                            <img
+                                src="{{ $user->avatar }}"
+                                alt=""
+                                class="premium-header__avatar"
+                            >
+                        @else
+                            <span class="premium-header__avatar-fallback" aria-hidden="true">
+                                {{ strtoupper(substr($user->name, 0, 1)) }}
+                            </span>
+                        @endif
+                        <span class="premium-header__name">{{ $user->name }}</span>
+                    </a>
                 </div>
 
                 <form action="{{ route('logout') }}" method="POST" class="logout-form premium-header__logout-form">
@@ -105,6 +107,7 @@
                 </form>
             @else
                 <a href="{{ route('login') }}" class="btn btn--ghost btn--small">{{ __('navigation.login') }}</a>
+                <a href="{{ route('register') }}" class="btn btn--ghost btn--small">{{ __('navigation.register') }}</a>
             @endauth
 
             <a href="{{ route('guest.reservations.search') }}" class="btn btn--primary btn--small">
@@ -158,12 +161,14 @@
                 @if ($showStaffPanel && $dashboardUrl)
                     <a href="{{ $dashboardUrl }}" class="btn btn--secondary">{{ __('navigation.panel') }}</a>
                 @endif
+                <a href="{{ route('profile.edit') }}" class="btn btn--secondary">{{ __('navigation.profile') }}</a>
                 <form action="{{ route('logout') }}" method="POST" class="logout-form">
                     @csrf
                     <button type="submit" class="btn btn--ghost">{{ __('navigation.logout') }}</button>
                 </form>
             @else
                 <a href="{{ route('login') }}" class="btn btn--secondary">{{ __('navigation.login') }}</a>
+                <a href="{{ route('register') }}" class="btn btn--secondary">{{ __('navigation.register') }}</a>
             @endauth
 
             <a href="{{ route('guest.reservations.search') }}" class="btn btn--primary">

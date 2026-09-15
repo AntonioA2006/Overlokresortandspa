@@ -102,6 +102,17 @@
     border-radius: var(--radius-sm);
 }
 
+.auth-card__inline-link {
+    color: var(--color-text);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+}
+
+.auth-card__inline-link:hover,
+.auth-card__inline-link:focus-visible {
+    color: var(--color-accent);
+}
+
 .logout-form {
     margin: 0;
 }

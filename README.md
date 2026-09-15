@@ -55,7 +55,9 @@ GOOGLE_REDIRECT_URI=http://localhost:8000/auth/google/callback
 
 5. Visita `/login` y usa **Continuar con Google** o el formulario de correo y contraseña.
 
-Las cuentas demo del seeder inician sesión con correo y contraseña. Los huéspedes nuevos se crean automáticamente con Google.
+Las cuentas demo del seeder inician sesión con correo y contraseña. Los huéspedes también pueden **crear cuenta** en `/register`. Si olvidas la contraseña, usa `/forgot-password` (el mailer por defecto en local es `log`).
+
+Los huéspedes nuevos de Google siguen creándose automáticamente en el callback de OAuth.
 
 ## Usuarios demo (seeder)
 

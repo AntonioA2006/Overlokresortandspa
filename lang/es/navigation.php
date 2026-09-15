@@ -18,7 +18,9 @@ return [
 
     'book' => 'Reservar',
     'login' => 'Iniciar sesión',
+    'register' => 'Crear cuenta',
     'logout' => 'Cerrar sesión',
+    'profile' => 'Perfil',
     'my_stay' => 'Mi estancia',
     'notifications' => 'Avisos',
     'notifications_unread' => 'Avisos, :count sin leer',

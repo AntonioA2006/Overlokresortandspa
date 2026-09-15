@@ -121,6 +121,13 @@
     gap: var(--space-sm);
 }
 
+.premium-header__user .premium-header__account-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    color: inherit;
+}
+
 .premium-header__avatar,
 .premium-header__avatar-fallback {
     width: 2rem;

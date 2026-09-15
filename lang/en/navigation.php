@@ -18,7 +18,9 @@ return [
 
     'book' => 'Book',
     'login' => 'Sign in',
+    'register' => 'Create account',
     'logout' => 'Sign out',
+    'profile' => 'Profile',
     'my_stay' => 'My stay',
     'notifications' => 'Alerts',
     'notifications_unread' => 'Alerts, :count unread',

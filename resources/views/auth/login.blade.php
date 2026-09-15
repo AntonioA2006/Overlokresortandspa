@@ -63,6 +63,10 @@
                         autocomplete="current-password"
                     />
 
+                    <p class="auth-card__note">
+                        <a href="{{ route('password.request') }}" class="auth-card__inline-link">{{ __('auth.forgot_password') }}</a>
+                    </p>
+
                     <x-button type="submit" variant="primary">
                         {{ __('auth.sign_in') }}
                     </x-button>
@@ -71,6 +75,10 @@
                 <div class="auth-card__footer">
                     <p class="auth-card__future">
                         {{ __('auth.staff_login_note') }}
+                    </p>
+                    <p class="auth-card__future">
+                        {{ __('auth.no_account') }}
+                        <a href="{{ route('register') }}" class="auth-card__inline-link">{{ __('auth.create_account') }}</a>
                     </p>
                     <a href="{{ route('home') }}" class="auth-card__back">{{ __('auth.back_home') }}</a>
                 </div>
