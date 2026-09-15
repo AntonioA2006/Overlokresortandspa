@@ -3,9 +3,12 @@
 ])
 
 @php
+    use App\Services\Auth\PostLoginRedirectService;
+
     $currentPath = request()->path();
     $navItems = [
         ['label' => __('navigation.nav.stays'), 'href' => route('guest.reservations.search'), 'match' => 'guest/reservations/search'],
+        ['label' => __('navigation.nav.rooms'), 'href' => route('guest.rooms.index'), 'match' => 'guest/rooms'],
         ['label' => __('navigation.nav.experiences'), 'href' => route('home').'#experiencias', 'match' => null],
         ['label' => __('navigation.nav.spa'), 'href' => route('home').'#spa', 'match' => null],
         ['label' => __('navigation.nav.gastronomy'), 'href' => route('home').'#gastronomia', 'match' => null],
@@ -18,6 +21,13 @@
 
         return $href !== '#' && url($currentPath) === $href;
     };
+
+    $user = auth()->user();
+    $unreadCount = $unreadNotificationCount ?? 0;
+    $dashboardUrl = $user ? app(PostLoginRedirectService::class)->redirectPath($user) : null;
+    $showMyStay = $user?->isGuest() ?? false;
+    $showGuestSupport = $user?->isGuest() ?? false;
+    $showStaffPanel = $user?->isStaff() ?? false;
 @endphp
 
 <header
@@ -45,23 +55,48 @@
             <x-language-switcher />
 
             @auth
-                <a href="{{ route('guest.reservations.index') }}" class="btn btn--ghost btn--small premium-header__account-link">
-                    {{ __('navigation.my_stay') }}
+                <a
+                    href="{{ route('guest.notifications.index') }}"
+                    class="btn btn--ghost btn--small premium-header__account-link"
+                    @if($unreadCount > 0) aria-label="{{ __('navigation.notifications_unread', ['count' => $unreadCount]) }}" @endif
+                >
+                    {{ __('navigation.notifications') }}
+                    @if ($unreadCount > 0)
+                        <span class="badge badge--count">{{ $unreadCount }}</span>
+                    @endif
                 </a>
 
-                <div class="premium-header__user" aria-label="{{ __('navigation.my_stay') }}">
-                    @if (auth()->user()->avatar)
+                @if ($showMyStay)
+                    <a href="{{ route('guest.reservations.index') }}" class="btn btn--ghost btn--small premium-header__account-link">
+                        {{ __('navigation.my_stay') }}
+                    </a>
+                @endif
+
+                @if ($showGuestSupport)
+                    <a href="{{ route('guest.support.index') }}" class="btn btn--ghost btn--small premium-header__account-link">
+                        {{ __('navigation.support') }}
+                    </a>
+                @endif
+
+                @if ($showStaffPanel && $dashboardUrl)
+                    <a href="{{ $dashboardUrl }}" class="btn btn--ghost btn--small premium-header__account-link">
+                        {{ __('navigation.panel') }}
+                    </a>
+                @endif
+
+                <div class="premium-header__user" aria-label="{{ $user->name }}">
+                    @if ($user->avatar)
                         <img
-                            src="{{ auth()->user()->avatar }}"
+                            src="{{ $user->avatar }}"
                             alt=""
                             class="premium-header__avatar"
                         >
                     @else
                         <span class="premium-header__avatar-fallback" aria-hidden="true">
-                            {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
+                            {{ strtoupper(substr($user->name, 0, 1)) }}
                         </span>
                     @endif
-                    <span class="premium-header__name">{{ auth()->user()->name }}</span>
+                    <span class="premium-header__name">{{ $user->name }}</span>
                 </div>
 
                 <form action="{{ route('logout') }}" method="POST" class="logout-form premium-header__logout-form">
@@ -108,7 +143,21 @@
 
         <div class="premium-header__mobile-actions">
             @auth
-                <a href="{{ route('guest.reservations.index') }}" class="btn btn--secondary">{{ __('navigation.my_stay') }}</a>
+                <a href="{{ route('guest.notifications.index') }}" class="btn btn--secondary">
+                    {{ __('navigation.notifications') }}
+                    @if ($unreadCount > 0)
+                        <span class="badge badge--count">{{ $unreadCount }}</span>
+                    @endif
+                </a>
+                @if ($showMyStay)
+                    <a href="{{ route('guest.reservations.index') }}" class="btn btn--secondary">{{ __('navigation.my_stay') }}</a>
+                @endif
+                @if ($showGuestSupport)
+                    <a href="{{ route('guest.support.index') }}" class="btn btn--secondary">{{ __('navigation.support') }}</a>
+                @endif
+                @if ($showStaffPanel && $dashboardUrl)
+                    <a href="{{ $dashboardUrl }}" class="btn btn--secondary">{{ __('navigation.panel') }}</a>
+                @endif
                 <form action="{{ route('logout') }}" method="POST" class="logout-form">
                     @csrf
                     <button type="submit" class="btn btn--ghost">{{ __('navigation.logout') }}</button>

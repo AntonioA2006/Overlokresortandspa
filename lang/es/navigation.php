@@ -10,6 +10,7 @@ return [
 
     'nav' => [
         'stays' => 'Estancias',
+        'rooms' => 'Habitaciones',
         'experiences' => 'Experiencias',
         'spa' => 'Spa',
         'gastronomy' => 'Gastronomía',
@@ -19,6 +20,10 @@ return [
     'login' => 'Iniciar sesión',
     'logout' => 'Cerrar sesión',
     'my_stay' => 'Mi estancia',
+    'notifications' => 'Avisos',
+    'notifications_unread' => 'Avisos, :count sin leer',
+    'support' => 'Soporte',
+    'panel' => 'Panel',
     'open_menu' => 'Abrir menú',
     'close_menu' => 'Cerrar menú',
     'main_nav' => 'Principal',

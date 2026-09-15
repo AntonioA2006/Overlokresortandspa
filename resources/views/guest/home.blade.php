@@ -96,6 +96,10 @@
                                 <span>{{ __('home.rooms_from') }} ${{ number_format((float) $roomType->base_price_per_night, 0, '.', ',') }} MXN {{ __('home.rooms_per_night') }}</span>
                                 <span>{{ __('home.rooms_guests', ['count' => $roomType->max_guests]) }}</span>
                             </div>
+
+                            <x-button href="{{ route('guest.reservations.rooms.show', $roomType) }}" variant="ghost">
+                                {{ __('home.view_room') }}
+                            </x-button>
                         </div>
                     </article>
                 @empty

@@ -54,6 +54,8 @@ class ReservationPresentation
             ReservationStatus::Confirmed => __('reservations.reservation_confirmed'),
             ReservationStatus::Pending => __('reservations.reservation_created'),
             ReservationStatus::Cancelled => __('reservations.reservation_cancelled'),
+            ReservationStatus::CheckedIn => __('reservations.statuses.checked_in'),
+            ReservationStatus::CheckedOut => __('reservations.statuses.checked_out'),
             default => self::statusLabel($status),
         };
     }

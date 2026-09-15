@@ -10,6 +10,7 @@ return [
 
     'nav' => [
         'stays' => 'Stays',
+        'rooms' => 'Rooms',
         'experiences' => 'Experiences',
         'spa' => 'Spa',
         'gastronomy' => 'Dining',
@@ -19,6 +20,10 @@ return [
     'login' => 'Sign in',
     'logout' => 'Sign out',
     'my_stay' => 'My stay',
+    'notifications' => 'Alerts',
+    'notifications_unread' => 'Alerts, :count unread',
+    'support' => 'Support',
+    'panel' => 'Panel',
     'open_menu' => 'Open menu',
     'close_menu' => 'Close menu',
     'main_nav' => 'Main',

@@ -1,5 +1,15 @@
 const POLL_INTERVAL_MS = 30000;
 
+function csrfHeaders() {
+    const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+
+    return {
+        Accept: 'application/json',
+        'X-Requested-With': 'XMLHttpRequest',
+        'X-CSRF-TOKEN': token || '',
+    };
+}
+
 export function startNotificationPolling(endpoint) {
     if (!endpoint) {
         return;
@@ -8,7 +18,7 @@ export function startNotificationPolling(endpoint) {
     const poll = async () => {
         try {
             await fetch(endpoint, {
-                headers: { Accept: 'application/json' },
+                headers: csrfHeaders(),
                 credentials: 'same-origin',
             });
         } catch (error) {

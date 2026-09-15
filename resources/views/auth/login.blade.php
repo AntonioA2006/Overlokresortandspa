@@ -37,9 +37,40 @@
                     </p>
                 </div>
 
+                <div class="auth-card__divider" role="separator">
+                    <span>{{ __('auth.or_email') }}</span>
+                </div>
+
+                <form method="POST" action="{{ route('login.store') }}" class="auth-card__form stack">
+                    @csrf
+
+                    <x-field
+                        :label="__('auth.email')"
+                        name="email"
+                        type="email"
+                        :value="old('email')"
+                        :error="$errors->first('email')"
+                        required
+                        autocomplete="email"
+                    />
+
+                    <x-field
+                        :label="__('auth.password')"
+                        name="password"
+                        type="password"
+                        :error="$errors->first('password')"
+                        required
+                        autocomplete="current-password"
+                    />
+
+                    <x-button type="submit" variant="primary">
+                        {{ __('auth.sign_in') }}
+                    </x-button>
+                </form>
+
                 <div class="auth-card__footer">
                     <p class="auth-card__future">
-                        {{ __('auth.future_login_note') }}
+                        {{ __('auth.staff_login_note') }}
                     </p>
                     <a href="{{ route('home') }}" class="auth-card__back">{{ __('auth.back_home') }}</a>
                 </div>

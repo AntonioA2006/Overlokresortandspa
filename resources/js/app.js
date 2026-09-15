@@ -17,4 +17,26 @@ document.addEventListener('DOMContentLoaded', () => {
             initReservationConfirmation();
         });
     }
+
+    const chatWindow = document.querySelector('[data-chat-window]');
+
+    if (chatWindow) {
+        import('./chat.js').then(({ startChatPolling, renderChatMessages }) => {
+            const messagesUrl = chatWindow.dataset.messagesUrl;
+            const container = chatWindow.querySelector('[data-chat-messages]');
+
+            startChatPolling({
+                messagesUrl,
+                onMessages: (payload) => renderChatMessages(container, payload, Number(chatWindow.dataset.userId || 0)),
+            });
+        });
+    }
+
+    const notificationsList = document.querySelector('[data-notifications-poll]');
+
+    if (notificationsList) {
+        import('./notifications.js').then(({ startNotificationPolling }) => {
+            startNotificationPolling(notificationsList.dataset.notificationsPoll);
+        });
+    }
 });

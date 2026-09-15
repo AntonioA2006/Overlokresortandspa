@@ -8,5 +8,7 @@ return [
     'placeholder_eyebrow' => 'Overlook',
     'placeholder_title' => 'Próximamente',
     'placeholder_description' => 'Esta sección se implementará en la siguiente iteración.',
+    'previous' => 'Anterior',
+    'next' => 'Siguiente',
 
 ];

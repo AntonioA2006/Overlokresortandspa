@@ -53,7 +53,9 @@ GOOGLE_CLIENT_SECRET=tu-client-secret
 GOOGLE_REDIRECT_URI=http://localhost:8000/auth/google/callback
 ```
 
-5. Visita `/login` y usa **Continuar con Google**.
+5. Visita `/login` y usa **Continuar con Google** o el formulario de correo y contraseña.
+
+Las cuentas demo del seeder inician sesión con correo y contraseña. Los huéspedes nuevos se crean automáticamente con Google.
 
 ## Usuarios demo (seeder)
 
