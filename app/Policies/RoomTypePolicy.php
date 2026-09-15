@@ -18,6 +18,11 @@ class RoomTypePolicy
         return $user->hasRole(UserRole::Admin);
     }
 
+    public function create(User $user): bool
+    {
+        return $user->hasRole(UserRole::Admin);
+    }
+
     public function update(User $user, RoomType $roomType): bool
     {
         return $user->hasRole(UserRole::Admin);

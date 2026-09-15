@@ -12,6 +12,7 @@
     },
     "dependencies": {
         "flatpickr": "^4.6.13",
+        "jsqr": "^1.4.0",
         "qrcode": "^1.5.4"
     }
 }

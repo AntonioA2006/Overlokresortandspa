@@ -1,4 +1,4 @@
-<form method="POST" action="{{ $action }}" class="stack">
+<form method="POST" action="{{ $action }}" class="stack" enctype="multipart/form-data">
     @csrf
 
     <div @class(['form-group', 'is-error' => $errors->has('room_type_id')])>
@@ -50,6 +50,26 @@
         <label class="form-label" for="description">{{ __('admin.description') }}</label>
         <textarea id="description" name="description" class="form-textarea" rows="4">{{ old('description', $room?->description) }}</textarea>
         @error('description')
+            <p class="form-error">{{ $message }}</p>
+        @enderror
+    </div>
+
+    @if ($room?->photos?->isNotEmpty())
+        <div class="form-group">
+            <p class="form-label">{{ __('admin.current_photos') }}</p>
+            <div class="admin-photo-grid">
+                @foreach ($room->photos as $photo)
+                    <img class="admin-photo-preview" src="{{ asset($photo->path) }}" alt="{{ $photo->alt_text }}">
+                @endforeach
+            </div>
+        </div>
+    @endif
+
+    <div @class(['form-group', 'is-error' => $errors->has('photo')])>
+        <label class="form-label" for="photo">{{ __('admin.room_photo') }}</label>
+        <input id="photo" class="form-input" type="file" name="photo" accept="image/jpeg,image/png,image/webp">
+        <p class="form-help">{{ __('admin.photo_help') }}</p>
+        @error('photo')
             <p class="form-error">{{ $message }}</p>
         @enderror
     </div>

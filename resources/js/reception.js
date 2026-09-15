@@ -32,8 +32,59 @@ function submitLookup(form, tokenInput, rawValue) {
     return true;
 }
 
+function canUseCamera() {
+    return Boolean(navigator.mediaDevices?.getUserMedia);
+}
+
+function canUseBarcodeDetector() {
+    return 'BarcodeDetector' in window;
+}
+
+function captureFrame(video, canvas, context) {
+    const width = video.videoWidth;
+    const height = video.videoHeight;
+
+    if (!width || !height) {
+        return null;
+    }
+
+    canvas.width = width;
+    canvas.height = height;
+    context.drawImage(video, 0, 0, width, height);
+
+    return context.getImageData(0, 0, width, height);
+}
+
+async function detectWithBarcodeDetector(video) {
+    const detector = new window.BarcodeDetector({ formats: ['qr_code'] });
+    const barcodes = await detector.detect(video);
+
+    return barcodes[0]?.rawValue || null;
+}
+
+async function createJsQrScanner() {
+    const module = await import('jsqr');
+    const jsQR = module.default;
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d', { willReadFrequently: true });
+
+    return (video) => {
+        const imageData = captureFrame(video, canvas, context);
+
+        if (!imageData) {
+            return null;
+        }
+
+        const result = jsQR(imageData.data, imageData.width, imageData.height, {
+            inversionAttempts: 'attemptBoth',
+        });
+
+        return result?.data || null;
+    };
+}
+
 async function startCamera({ video, form, tokenInput, statusEl, startButton, stopButton, strings }) {
-    if (!('BarcodeDetector' in window) || !navigator.mediaDevices?.getUserMedia) {
+    if (!canUseCamera()) {
         return false;
     }
 
@@ -64,7 +115,10 @@ async function startCamera({ video, form, tokenInput, statusEl, startButton, sto
     }
     setStatus(statusEl, strings.scanning);
 
-    const detector = new window.BarcodeDetector({ formats: ['qr_code'] });
+    const detectFrame = canUseBarcodeDetector()
+        ? detectWithBarcodeDetector
+        : await createJsQrScanner();
+
     let stopped = false;
 
     const stop = () => {
@@ -88,8 +142,7 @@ async function startCamera({ video, form, tokenInput, statusEl, startButton, sto
         }
 
         try {
-            const barcodes = await detector.detect(video);
-            const raw = barcodes[0]?.rawValue;
+            const raw = await detectFrame(video);
 
             if (raw) {
                 setStatus(statusEl, strings.detected);
@@ -158,9 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
         tokenInput.value = extractReservationLookup(tokenInput.value);
     });
 
-    const cameraSupported = Boolean(
-        cameraWrap && video && startButton && 'BarcodeDetector' in window && navigator.mediaDevices?.getUserMedia,
-    );
+    const cameraSupported = Boolean(cameraWrap && video && startButton && canUseCamera());
 
     if (!cameraSupported) {
         return;

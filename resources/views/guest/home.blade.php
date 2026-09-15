@@ -75,7 +75,7 @@
                     <article @class(['landing-room', 'landing-room--reverse' => $index % 2 === 1]) data-reveal>
                         <div class="landing-room__media">
                             <img
-                                src="{{ asset(__('home.images.room')) }}"
+                                src="{{ filled($roomType->cover_path) ? asset($roomType->cover_path) : asset(__('home.images.room')) }}"
                                 alt="{{ $roomType->name }}"
                                 width="1400"
                                 height="875"

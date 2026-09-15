@@ -17,15 +17,15 @@ enum AuditAction: string
     public function label(): string
     {
         return match ($this) {
-            self::ReservationCreated => 'Reservación creada',
-            self::ReservationConfirmed => 'Reservación confirmada',
-            self::ReservationCancelled => 'Reservación cancelada',
-            self::QrScanned => 'QR escaneado',
-            self::IdentityVerified => 'Identidad verificada',
-            self::CheckInCompleted => 'Check-in completado',
-            self::RoomDelivered => 'Habitación entregada',
-            self::CheckOutCompleted => 'Check-out completado',
-            self::AdminChange => 'Cambio administrativo',
+            self::ReservationCreated => __('enums.audit.reservation_created'),
+            self::ReservationConfirmed => __('enums.audit.reservation_confirmed'),
+            self::ReservationCancelled => __('enums.audit.reservation_cancelled'),
+            self::QrScanned => __('enums.audit.qr_scanned'),
+            self::IdentityVerified => __('enums.audit.identity_verified'),
+            self::CheckInCompleted => __('enums.audit.check_in_completed'),
+            self::RoomDelivered => __('enums.audit.room_delivered'),
+            self::CheckOutCompleted => __('enums.audit.check_out_completed'),
+            self::AdminChange => __('enums.audit.admin_change'),
         };
     }
 }

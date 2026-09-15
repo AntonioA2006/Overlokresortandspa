@@ -17,6 +17,7 @@ return [
     'set_password' => 'Crear contraseña',
     'password_updated' => 'Contraseña actualizada.',
     'google_password_help' => 'Tu cuenta se creó con Google. Puedes añadir una contraseña si quieres entrar también con correo.',
+    'unverified' => 'Tu correo aún no está verificado. Revisa tu bandeja o reenvía el enlace para reservar y ver tu estancia.',
     'validation' => [
         'name_required' => 'Indica tu nombre.',
         'current_password_required' => 'Indica tu contraseña actual.',

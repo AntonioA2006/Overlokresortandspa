@@ -17,6 +17,7 @@ return [
     'set_password' => 'Set a password',
     'password_updated' => 'Password updated.',
     'google_password_help' => 'Your account was created with Google. You can add a password if you also want to sign in with email.',
+    'unverified' => 'Your email is not verified yet. Check your inbox or resend the link to book and view your stay.',
     'validation' => [
         'name_required' => 'Please enter your name.',
         'current_password_required' => 'Please enter your current password.',

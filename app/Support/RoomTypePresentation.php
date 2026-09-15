@@ -15,6 +15,13 @@ class RoomTypePresentation
      */
     public static function resolvePhoto(Collection $rooms, RoomType $roomType): ?array
     {
+        if (filled($roomType->cover_path)) {
+            return [
+                'url' => asset($roomType->cover_path),
+                'alt' => __('reservations.photo_alt', ['name' => $roomType->name]),
+            ];
+        }
+
         foreach ($rooms as $room) {
             /** @var RoomPhoto|null $photo */
             $photo = $room->photos->firstWhere('is_primary', true) ?? $room->photos->first();
@@ -37,6 +44,13 @@ class RoomTypePresentation
     public static function resolveGallery(Collection $rooms, RoomType $roomType): array
     {
         $photos = [];
+
+        if (filled($roomType->cover_path)) {
+            $photos[] = [
+                'url' => asset($roomType->cover_path),
+                'alt' => __('reservations.photo_alt', ['name' => $roomType->name]),
+            ];
+        }
 
         foreach ($rooms as $room) {
             foreach ($room->photos as $photo) {

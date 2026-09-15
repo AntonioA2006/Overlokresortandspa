@@ -8,6 +8,8 @@ use App\Models\Room;
 use App\Models\RoomType;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class RoomManagementTest extends TestCase
@@ -73,6 +75,32 @@ class RoomManagementTest extends TestCase
         $this->assertSame('101A', $room->number);
         $this->assertSame($otherType->id, $room->room_type_id);
         $this->assertSame(RoomStatus::Reserved, $room->status);
+    }
+
+    public function test_admin_can_upload_a_room_photo(): void
+    {
+        Storage::fake('public');
+
+        $admin = User::factory()->create(['role' => UserRole::Admin]);
+        $roomType = RoomType::factory()->create(['name' => 'Garden Suite']);
+        $photo = UploadedFile::fake()->image('room.jpg', 640, 480);
+
+        $this->actingAs($admin)->post(route('admin.rooms.store'), [
+            'room_type_id' => $roomType->id,
+            'number' => '410',
+            'floor' => 4,
+            'status' => RoomStatus::Available->value,
+            'photo' => $photo,
+        ])->assertRedirect(route('admin.rooms.index'));
+
+        $room = Room::query()->where('number', '410')->first();
+
+        $this->assertNotNull($room);
+        $this->assertSame(1, $room->photos()->count());
+        $storedPath = $room->photos()->first()?->path;
+        $this->assertNotNull($storedPath);
+        $this->assertStringStartsWith('storage/', $storedPath);
+        Storage::disk('public')->assertExists(substr($storedPath, strlen('storage/')));
     }
 
     public function test_reception_cannot_create_rooms(): void

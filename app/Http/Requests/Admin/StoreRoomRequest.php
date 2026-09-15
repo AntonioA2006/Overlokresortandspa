@@ -32,6 +32,7 @@ class StoreRoomRequest extends FormRequest
             'floor' => ['nullable', 'integer', 'min:0', 'max:50'],
             'status' => ['required', Rule::enum(RoomStatus::class)],
             'description' => ['nullable', 'string', 'max:2000'],
+            'photo' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:4096'],
         ];
     }
 
@@ -46,6 +47,9 @@ class StoreRoomRequest extends FormRequest
             'number.required' => __('admin.validation.room_number_required'),
             'number.unique' => __('admin.validation.room_number_unique'),
             'status.required' => __('admin.validation.room_status_required'),
+            'photo.image' => __('admin.validation.photo_image'),
+            'photo.mimes' => __('admin.validation.photo_mimes'),
+            'photo.max' => __('admin.validation.photo_max'),
         ];
     }
 }

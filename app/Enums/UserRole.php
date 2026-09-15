@@ -12,10 +12,10 @@ enum UserRole: string
     public function label(): string
     {
         return match ($this) {
-            self::Guest => 'Huésped',
-            self::Reception => 'Recepción',
-            self::Support => 'Soporte',
-            self::Admin => 'Administrador',
+            self::Guest => __('enums.roles.guest'),
+            self::Reception => __('enums.roles.reception'),
+            self::Support => __('enums.roles.support'),
+            self::Admin => __('enums.roles.admin'),
         };
     }
 

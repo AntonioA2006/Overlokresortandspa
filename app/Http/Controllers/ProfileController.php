@@ -21,7 +21,16 @@ class ProfileController extends Controller
     {
         $user = $request->user();
         $user->fill($request->safe()->only(['name', 'email', 'phone']));
+
+        if ($user->isDirty('email')) {
+            $user->email_verified_at = null;
+        }
+
         $user->save();
+
+        if ($user->wasChanged('email')) {
+            $user->sendEmailVerificationNotification();
+        }
 
         return back()->with('status', __('profile.updated'));
     }

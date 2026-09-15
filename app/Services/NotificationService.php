@@ -6,7 +6,11 @@ use App\Enums\NotificationType;
 use App\Models\Reservation;
 use App\Models\User;
 use App\Models\UserNotification;
+use App\Notifications\ReservationCancelledNotification;
+use App\Notifications\ReservationConfirmedNotification;
+use App\Notifications\RoomDeliveryReminderNotification;
 use Illuminate\Contracts\Pagination\Paginator;
+use Illuminate\Notifications\Notification;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
@@ -17,7 +21,7 @@ class NotificationService
         $checkInTime = config('overlook.default_check_in_time', '15:00');
         $dedupeKey = app(RoomDeliveryReminderService::class)->dedupeKey($reservation, $intervalHours);
 
-        return UserNotification::query()->firstOrCreate(
+        $notification = UserNotification::query()->firstOrCreate(
             ['dedupe_key' => $dedupeKey],
             [
                 'user_id' => $reservation->user_id,
@@ -35,11 +39,19 @@ class NotificationService
                 'sent_at' => now(),
             ]
         );
+
+        $this->sendStayMail(
+            $reservation,
+            $notification,
+            new RoomDeliveryReminderNotification($reservation, $intervalHours),
+        );
+
+        return $notification;
     }
 
     public function notifyReservationConfirmed(Reservation $reservation): UserNotification
     {
-        return UserNotification::query()->firstOrCreate(
+        $notification = UserNotification::query()->firstOrCreate(
             ['dedupe_key' => 'reservation_confirmed:'.$reservation->id],
             [
                 'user_id' => $reservation->user_id,
@@ -53,11 +65,19 @@ class NotificationService
                 'sent_at' => now(),
             ]
         );
+
+        $this->sendStayMail(
+            $reservation,
+            $notification,
+            new ReservationConfirmedNotification($reservation),
+        );
+
+        return $notification;
     }
 
     public function notifyReservationCancelled(Reservation $reservation): UserNotification
     {
-        return UserNotification::query()->firstOrCreate(
+        $notification = UserNotification::query()->firstOrCreate(
             ['dedupe_key' => 'reservation_cancelled:'.$reservation->id],
             [
                 'user_id' => $reservation->user_id,
@@ -71,6 +91,14 @@ class NotificationService
                 'sent_at' => now(),
             ]
         );
+
+        $this->sendStayMail(
+            $reservation,
+            $notification,
+            new ReservationCancelledNotification($reservation),
+        );
+
+        return $notification;
     }
 
     public function notifyRoomDelivered(Reservation $reservation): UserNotification
@@ -153,5 +181,24 @@ class NotificationService
             ->whereBelongsTo($user)
             ->whereNull('read_at')
             ->update(['read_at' => now()]);
+    }
+
+    private function sendStayMail(
+        Reservation $reservation,
+        UserNotification $notification,
+        Notification $mailNotification,
+    ): void {
+        if (! $notification->wasRecentlyCreated) {
+            return;
+        }
+
+        $reservation->loadMissing('user');
+        $user = $reservation->user;
+
+        if ($user === null || ! filled($user->email)) {
+            return;
+        }
+
+        $user->notify($mailNotification);
     }
 }

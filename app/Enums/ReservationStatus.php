@@ -14,12 +14,12 @@ enum ReservationStatus: string
     public function label(): string
     {
         return match ($this) {
-            self::Pending => 'Pendiente',
-            self::Confirmed => 'Confirmada',
-            self::Cancelled => 'Cancelada',
-            self::CheckedIn => 'Check-in realizado',
-            self::CheckedOut => 'Check-out realizado',
-            self::NoShow => 'No se presentó',
+            self::Pending => __('enums.reservation_status.pending'),
+            self::Confirmed => __('enums.reservation_status.confirmed'),
+            self::Cancelled => __('enums.reservation_status.cancelled'),
+            self::CheckedIn => __('enums.reservation_status.checked_in'),
+            self::CheckedOut => __('enums.reservation_status.checked_out'),
+            self::NoShow => __('enums.reservation_status.no_show'),
         };
     }
 

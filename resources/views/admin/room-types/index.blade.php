@@ -15,6 +15,10 @@
                 <p class="section__subtitle">{{ __('admin.rates_lead') }}</p>
             </header>
 
+            <div class="reception-toolbar" data-reveal>
+                <a class="btn btn--primary" href="{{ route('admin.room-types.create') }}">{{ __('admin.rates_create') }}</a>
+            </div>
+
             @if (session('status'))
                 <div class="inline-message inline-message--info" role="status">{{ session('status') }}</div>
             @endif
