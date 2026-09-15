@@ -31,6 +31,12 @@ return [
     'reset_title' => 'Nueva contraseña',
     'reset_subtitle' => 'Elige una contraseña para tu cuenta Overlook.',
     'reset_password' => 'Guardar contraseña',
+    'reset_mail_subject' => 'Restablece tu contraseña — :hotel',
+    'reset_mail_heading' => 'Restablece tu contraseña',
+    'reset_mail_intro' => 'Hola :name, recibimos una solicitud para restablecer la contraseña de tu cuenta en :hotel.',
+    'reset_mail_expire' => 'Este enlace caduca en :count minutos.',
+    'reset_mail_ignore' => 'Si no solicitaste este cambio, puedes ignorar el mensaje.',
+    'reset_mail_regards' => 'Saludos',
     'failed' => 'Estas credenciales no coinciden con nuestros registros.',
     'throttle' => 'Demasiados intentos. Intenta de nuevo en :seconds segundos.',
 

@@ -55,7 +55,26 @@ GOOGLE_REDIRECT_URI=http://localhost:8000/auth/google/callback
 
 5. Visita `/login` y usa **Continuar con Google** o el formulario de correo y contraseña.
 
-Las cuentas demo del seeder inician sesión con correo y contraseña. Los huéspedes también pueden **crear cuenta** en `/register`. Si olvidas la contraseña, usa `/forgot-password` (el mailer por defecto en local es `log`).
+Las cuentas demo del seeder inician sesión con correo y contraseña. Los huéspedes también pueden **crear cuenta** en `/register`. Si olvidas la contraseña, usa `/forgot-password`.
+
+### Correo (restablecer contraseña)
+
+En local, `MAIL_MAILER=log` escribe el enlace en `storage/logs/laravel.log`. El correo usa la plantilla `resources/views/mail/auth/reset-password.blade.php` y sale desde `MAIL_FROM_ADDRESS`.
+
+Para producción configura SMTP (o el mailer que inyecte Laravel Cloud):
+
+```env
+MAIL_MAILER=smtp
+MAIL_SCHEME=smtps
+MAIL_HOST=smtp.example.com
+MAIL_PORT=465
+MAIL_USERNAME=
+MAIL_PASSWORD=
+MAIL_FROM_ADDRESS="reservaciones@tu-dominio.com"
+MAIL_FROM_NAME="${APP_NAME}"
+```
+
+Usa un remitente de un dominio que controles. `hello@example.com` no es válido para entrega real.
 
 Los huéspedes nuevos de Google siguen creándose automáticamente en el callback de OAuth.
 
@@ -79,6 +98,23 @@ php artisan schedule:work
 ```
 
 Comando: `overlook:send-room-delivery-reminders`
+
+En producción habilita el scheduler del entorno (Laravel Cloud: scheduler en el cluster de la app).
+
+## Despliegue
+
+La ruta recomendada es [Laravel Cloud](https://cloud.laravel.com/): conectar el repo, PHP 8.4+, build `composer install --no-dev && npm run build`, deploy `php artisan migrate --force`.
+
+Checklist mínimo de entorno:
+
+- `APP_URL` con HTTPS (la cámara de recepción lo requiere fuera de localhost)
+- `APP_KEY`
+- Base de datos MySQL o PostgreSQL (no SQLite de archivo local)
+- `MAIL_*` SMTP real y `MAIL_FROM_ADDRESS` del dominio
+- `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` / `GOOGLE_REDIRECT_URI` del dominio público
+- Scheduler para recordatorios de entrega de habitación
+
+Este repositorio no incluye un stack Docker propio; no es necesario para Cloud.
 
 ## Arquitectura
 

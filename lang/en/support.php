@@ -23,6 +23,9 @@ return [
     'reply_sent' => 'Reply sent.',
     'close' => 'Close conversation',
     'conversation_closed' => 'Conversation closed.',
+    'status_open' => 'Open',
+    'status_waiting' => 'Waiting',
+    'status_closed' => 'Closed',
     'errors' => [
         'closed' => 'This conversation is already closed.',
         'forbidden' => 'You do not have permission for this conversation.',

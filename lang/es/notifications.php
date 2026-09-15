@@ -22,5 +22,7 @@ return [
     'mark_all_read' => 'Marcar todas como leídas',
     'marked_read' => 'Notificación marcada como leída.',
     'all_marked_read' => 'Todas las notificaciones se marcaron como leídas.',
+    'open_reservation' => 'Ver reservación',
+    'open_support' => 'Abrir chat',
 
 ];

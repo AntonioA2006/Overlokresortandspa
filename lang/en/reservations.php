@@ -93,6 +93,7 @@ return [
     'qr_instructions' => 'Present this code at reception to validate your reservation.',
     'qr_alt' => 'Check-in QR code for reservation :code',
     'qr_reception_note' => 'The QR securely routes reception staff to your reservation.',
+    'qr_code_fallback' => 'If the QR does not load, give this code to reception: :code',
     'view_my_stays' => 'View my stays',
     'guests_count_label' => '{1} :count guest|[2,*] :count guests',
 

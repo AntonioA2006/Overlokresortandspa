@@ -22,5 +22,7 @@ return [
     'mark_all_read' => 'Mark all as read',
     'marked_read' => 'Notification marked as read.',
     'all_marked_read' => 'All notifications were marked as read.',
+    'open_reservation' => 'View reservation',
+    'open_support' => 'Open chat',
 
 ];

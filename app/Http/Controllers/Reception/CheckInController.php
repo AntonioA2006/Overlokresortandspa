@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Reception;
 use App\Exceptions\CheckInException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CompleteCheckInRequest;
+use App\Http\Requests\LookupReservationRequest;
 use App\Services\CheckInService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -19,23 +20,40 @@ class CheckInController extends Controller
         ]);
     }
 
+    public function lookup(
+        LookupReservationRequest $request,
+        CheckInService $checkInService,
+    ): RedirectResponse {
+        $lookup = $checkInService->normalizeLookup($request->validated('lookup'));
+
+        try {
+            $checkInService->findForReception($lookup);
+        } catch (CheckInException $exception) {
+            return back()
+                ->withInput()
+                ->with('reception_error', $exception->getMessage());
+        }
+
+        return redirect()->route('reception.check', $lookup);
+    }
+
     public function show(
         Request $request,
         string $token,
         CheckInService $checkInService,
     ): View|RedirectResponse {
+        $lookup = $checkInService->normalizeLookup($token);
+
         try {
-            $reservation = $checkInService->findForReception($token);
+            $reservation = $checkInService->findForReception($lookup);
         } catch (CheckInException $exception) {
-            return redirect()
-                ->route('reception.dashboard')
-                ->with('reception_error', $exception->getMessage());
+            return $this->failedLookupRedirect($exception->getMessage());
         }
 
         $this->authorize('checkIn', $reservation);
 
         $foundByToken = $reservation->isTokenActive()
-            && hash_equals((string) $reservation->check_in_token, $token);
+            && hash_equals((string) $reservation->check_in_token, $lookup);
 
         if ($foundByToken) {
             $checkInService->recordScan($request->user(), $reservation);
@@ -46,7 +64,7 @@ class CheckInController extends Controller
             'hotelName' => config('overlook.hotel_name'),
             'reservation' => $reservation,
             'checkIn' => $reservation->checkIn,
-            'token' => $token,
+            'token' => $lookup,
         ]);
     }
 
@@ -58,9 +76,7 @@ class CheckInController extends Controller
         try {
             $reservation = $checkInService->findForReception($token);
         } catch (CheckInException $exception) {
-            return redirect()
-                ->route('reception.dashboard')
-                ->with('reception_error', $exception->getMessage());
+            return $this->failedLookupRedirect($exception->getMessage());
         }
 
         $this->authorize('checkIn', $reservation);
@@ -82,9 +98,7 @@ class CheckInController extends Controller
         try {
             $reservation = $checkInService->findForReception($token);
         } catch (CheckInException $exception) {
-            return redirect()
-                ->route('reception.dashboard')
-                ->with('reception_error', $exception->getMessage());
+            return $this->failedLookupRedirect($exception->getMessage());
         }
 
         $this->authorize('checkIn', $reservation);
@@ -110,9 +124,7 @@ class CheckInController extends Controller
         try {
             $reservation = $checkInService->findForReception($token);
         } catch (CheckInException $exception) {
-            return redirect()
-                ->route('reception.dashboard')
-                ->with('reception_error', $exception->getMessage());
+            return $this->failedLookupRedirect($exception->getMessage());
         }
 
         $this->authorize('checkIn', $reservation);
@@ -126,5 +138,19 @@ class CheckInController extends Controller
         return redirect()
             ->route('reception.dashboard')
             ->with('status', __('reception.checkout_completed'));
+    }
+
+    private function failedLookupRedirect(string $message): RedirectResponse
+    {
+        $scanUrl = route('reception.scan');
+        $previous = url()->previous();
+
+        $target = $previous === $scanUrl || str_starts_with($previous, $scanUrl.'?')
+            ? $scanUrl
+            : route('reception.dashboard');
+
+        return redirect()
+            ->to($target)
+            ->with('reception_error', $message);
     }
 }

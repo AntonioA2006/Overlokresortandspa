@@ -84,6 +84,7 @@
                             ></canvas>
                         </div>
                         <p class="reservation-show__qr-note">{{ __('reservations.qr_reception_note') }}</p>
+                        <p class="reservation-show__qr-note">{{ __('reservations.qr_code_fallback', ['code' => $reservation->code]) }}</p>
                     </div>
                 @endif
 

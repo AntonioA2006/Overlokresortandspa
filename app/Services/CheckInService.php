@@ -23,9 +23,31 @@ class CheckInService
         private NotificationService $notificationService,
     ) {}
 
-    public function findForReception(string $lookup): Reservation
+    public function normalizeLookup(string $lookup): string
     {
         $lookup = trim($lookup);
+
+        if ($lookup === '') {
+            return $lookup;
+        }
+
+        if (preg_match('~/reception/check/([^/?#]+)~i', $lookup, $matches) === 1) {
+            return rawurldecode($matches[1]);
+        }
+
+        if (filter_var($lookup, FILTER_VALIDATE_URL) !== false) {
+            $path = parse_url($lookup, PHP_URL_PATH) ?: '';
+            $segment = basename($path);
+
+            return $segment === '' || $segment === '/' ? $lookup : rawurldecode($segment);
+        }
+
+        return $lookup;
+    }
+
+    public function findForReception(string $lookup): Reservation
+    {
+        $lookup = $this->normalizeLookup($lookup);
 
         if ($lookup === '') {
             throw new CheckInException(__('reception.errors.token_invalid'));
