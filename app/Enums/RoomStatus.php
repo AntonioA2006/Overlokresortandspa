@@ -12,10 +12,10 @@ enum RoomStatus: string
     public function label(): string
     {
         return match ($this) {
-            self::Available => 'Disponible',
-            self::Occupied => 'Ocupada',
-            self::Maintenance => 'Mantenimiento',
-            self::Reserved => 'Reservada',
+            self::Available => __('enums.room_status.available'),
+            self::Occupied => __('enums.room_status.occupied'),
+            self::Maintenance => __('enums.room_status.maintenance'),
+            self::Reserved => __('enums.room_status.reserved'),
         };
     }
 

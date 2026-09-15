@@ -6,6 +6,8 @@ use App\Enums\UserRole;
 use App\Models\RoomType;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class RoomTypeRatesTest extends TestCase
@@ -68,5 +70,48 @@ class RoomTypeRatesTest extends TestCase
 
         $this->assertTrue($admin->can('update', $roomType));
         $this->assertFalse($guest->can('update', $roomType));
+        $this->assertTrue($admin->can('create', RoomType::class));
+        $this->assertFalse($guest->can('create', RoomType::class));
+    }
+
+    public function test_admin_can_create_a_room_type_with_a_cover_photo(): void
+    {
+        Storage::fake('public');
+
+        $admin = User::factory()->create(['role' => UserRole::Admin]);
+        $cover = UploadedFile::fake()->image('suite.jpg', 800, 600);
+
+        $this->actingAs($admin)->post(route('admin.room-types.store'), [
+            'name' => 'Cliff Suite',
+            'base_price_per_night' => 4100,
+            'max_guests' => 3,
+            'is_active' => '1',
+            'description' => 'Vista al acantilado',
+            'cover' => $cover,
+        ])->assertRedirect(route('admin.room-types.index'));
+
+        $roomType = RoomType::query()->where('name', 'Cliff Suite')->first();
+
+        $this->assertNotNull($roomType);
+        $this->assertSame('cliff-suite', $roomType->slug);
+        $this->assertSame('4100.00', $roomType->base_price_per_night);
+        $this->assertTrue($roomType->is_active);
+        $this->assertNotNull($roomType->cover_path);
+        $this->assertStringStartsWith('storage/', $roomType->cover_path);
+        Storage::disk('public')->assertExists(substr($roomType->cover_path, strlen('storage/')));
+    }
+
+    public function test_reception_cannot_create_room_types(): void
+    {
+        $reception = User::factory()->create(['role' => UserRole::Reception]);
+
+        $this->actingAs($reception)->post(route('admin.room-types.store'), [
+            'name' => 'Intrusa',
+            'base_price_per_night' => 1000,
+            'max_guests' => 2,
+            'is_active' => '1',
+        ])->assertForbidden();
+
+        $this->assertDatabaseMissing('room_types', ['name' => 'Intrusa']);
     }
 }

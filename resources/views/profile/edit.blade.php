@@ -17,6 +17,16 @@
                 <div class="inline-message inline-message--info" role="status">{{ session('status') }}</div>
             @endif
 
+            @if (! $user->hasVerifiedEmail())
+                <div class="inline-message inline-message--info" role="status">
+                    {{ __('profile.unverified') }}
+                    <form method="POST" action="{{ route('verification.send') }}" class="stack">
+                        @csrf
+                        <x-button type="submit" variant="secondary">{{ __('auth.verify_resend') }}</x-button>
+                    </form>
+                </div>
+            @endif
+
             <div class="card" data-reveal>
                 <div class="card__body stack">
                     <h2 class="card__title">{{ __('profile.account') }}</h2>

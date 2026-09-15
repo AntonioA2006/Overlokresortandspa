@@ -60,8 +60,11 @@ return [
     'rates_page_title' => 'Tarifas | Administración',
     'rates_heading' => 'Tarifas por tipo',
     'rates_lead' => 'El precio por noche vive en cada tipo de habitación.',
+    'rates_create' => 'Nuevo tipo',
+    'rates_create_title' => 'Nuevo tipo | Administración',
     'rates_edit' => 'Editar tarifa :name',
     'rates_edit_title' => 'Editar tarifa :name',
+    'rates_created' => 'Tipo de habitación creado.',
     'rates_updated' => 'Tarifa actualizada.',
     'rate_name' => 'Nombre',
     'rate_price' => 'Precio por noche',
@@ -69,6 +72,11 @@ return [
     'rate_active' => 'Activo en catálogo',
     'rate_inactive' => 'Oculto en catálogo',
     'rate_rooms_count' => ':count habitaciones',
+    'cover_photo' => 'Foto de catálogo',
+    'room_photo' => 'Foto de la habitación',
+    'current_cover' => 'Foto actual',
+    'current_photos' => 'Fotos actuales',
+    'photo_help' => 'JPG, PNG o WebP. Máximo 4 MB.',
 
     'validation' => [
         'room_type_required' => 'Selecciona un tipo de habitación.',
@@ -84,6 +92,9 @@ return [
         'rate_price_min' => 'El precio no puede ser negativo.',
         'rate_guests_required' => 'Indica el máximo de huéspedes.',
         'rate_guests_min' => 'Debe admitir al menos un huésped.',
+        'photo_image' => 'El archivo debe ser una imagen.',
+        'photo_mimes' => 'Usa JPG, PNG o WebP.',
+        'photo_max' => 'La imagen no puede superar 4 MB.',
     ],
 
 ];

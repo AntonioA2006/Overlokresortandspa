@@ -60,8 +60,11 @@ return [
     'rates_page_title' => 'Rates | Admin',
     'rates_heading' => 'Rates by room type',
     'rates_lead' => 'Nightly price lives on each room type.',
+    'rates_create' => 'New room type',
+    'rates_create_title' => 'New room type | Admin',
     'rates_edit' => 'Edit rate :name',
     'rates_edit_title' => 'Edit rate :name',
+    'rates_created' => 'Room type created.',
     'rates_updated' => 'Rate updated.',
     'rate_name' => 'Name',
     'rate_price' => 'Price per night',
@@ -69,6 +72,11 @@ return [
     'rate_active' => 'Active in catalog',
     'rate_inactive' => 'Hidden from catalog',
     'rate_rooms_count' => ':count rooms',
+    'cover_photo' => 'Catalog photo',
+    'room_photo' => 'Room photo',
+    'current_cover' => 'Current photo',
+    'current_photos' => 'Current photos',
+    'photo_help' => 'JPG, PNG, or WebP. 4 MB maximum.',
 
     'validation' => [
         'room_type_required' => 'Select a room type.',
@@ -84,6 +92,9 @@ return [
         'rate_price_min' => 'The price cannot be negative.',
         'rate_guests_required' => 'Enter the guest maximum.',
         'rate_guests_min' => 'It must allow at least one guest.',
+        'photo_image' => 'The file must be an image.',
+        'photo_mimes' => 'Use JPG, PNG, or WebP.',
+        'photo_max' => 'The image cannot exceed 4 MB.',
     ],
 
 ];

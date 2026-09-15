@@ -16,14 +16,14 @@ enum NotificationType: string
     public function label(): string
     {
         return match ($this) {
-            self::ReservationConfirmed => 'Reservación confirmada',
-            self::ReservationCancelled => 'Reservación cancelada',
-            self::ArrivalReminder => 'Recordatorio de llegada',
-            self::RoomDeliveryReminder => 'Recordatorio de entrega',
-            self::RoomAvailable => 'Habitación disponible',
-            self::RoomDelivered => 'Habitación entregada',
-            self::SupportMessage => 'Mensaje de soporte',
-            self::HotelInfo => 'Información del hotel',
+            self::ReservationConfirmed => __('enums.notification_type.reservation_confirmed'),
+            self::ReservationCancelled => __('enums.notification_type.reservation_cancelled'),
+            self::ArrivalReminder => __('enums.notification_type.arrival_reminder'),
+            self::RoomDeliveryReminder => __('enums.notification_type.room_delivery_reminder'),
+            self::RoomAvailable => __('enums.notification_type.room_available'),
+            self::RoomDelivered => __('enums.notification_type.room_delivered'),
+            self::SupportMessage => __('enums.notification_type.support_message'),
+            self::HotelInfo => __('enums.notification_type.hotel_info'),
         };
     }
 

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Str;
 
 class RoomType extends Model
 {
@@ -18,6 +19,7 @@ class RoomType extends Model
         'base_price_per_night',
         'max_guests',
         'is_active',
+        'cover_path',
     ];
 
     protected function casts(): array
@@ -37,5 +39,19 @@ class RoomType extends Model
     public function amenities(): BelongsToMany
     {
         return $this->belongsToMany(Amenity::class);
+    }
+
+    public static function uniqueSlug(string $name): string
+    {
+        $base = Str::slug($name) ?: 'tipo';
+        $slug = $base;
+        $suffix = 2;
+
+        while (static::query()->where('slug', $slug)->exists()) {
+            $slug = $base.'-'.$suffix;
+            $suffix++;
+        }
+
+        return $slug;
     }
 }

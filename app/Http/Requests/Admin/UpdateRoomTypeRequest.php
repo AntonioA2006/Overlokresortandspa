@@ -33,6 +33,7 @@ class UpdateRoomTypeRequest extends FormRequest
             'max_guests' => ['required', 'integer', 'min:1', 'max:20'],
             'is_active' => ['required', 'boolean'],
             'description' => ['nullable', 'string', 'max:2000'],
+            'cover' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:4096'],
         ];
     }
 
@@ -47,6 +48,9 @@ class UpdateRoomTypeRequest extends FormRequest
             'base_price_per_night.min' => __('admin.validation.rate_price_min'),
             'max_guests.required' => __('admin.validation.rate_guests_required'),
             'max_guests.min' => __('admin.validation.rate_guests_min'),
+            'cover.image' => __('admin.validation.photo_image'),
+            'cover.mimes' => __('admin.validation.photo_mimes'),
+            'cover.max' => __('admin.validation.photo_max'),
         ];
     }
 }

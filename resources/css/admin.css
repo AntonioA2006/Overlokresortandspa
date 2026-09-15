@@ -17,3 +17,20 @@
 .admin-nav a.is-active {
     color: var(--color-text);
 }
+
+.admin-photo-preview {
+    display: block;
+    width: min(100%, 16rem);
+    height: auto;
+    border: 1px solid var(--color-border);
+}
+
+.admin-photo-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+}
+
+.admin-photo-grid .admin-photo-preview {
+    width: 8rem;
+}

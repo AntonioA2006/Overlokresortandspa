@@ -36,6 +36,7 @@ class UserManagementTest extends TestCase
             'email' => 'north@overlook.test',
             'role' => UserRole::Reception->value,
         ]);
+        $this->assertNotNull(User::query()->where('email', 'north@overlook.test')->first()?->email_verified_at);
     }
 
     public function test_admin_can_change_a_user_role(): void

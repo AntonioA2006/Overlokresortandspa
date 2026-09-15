@@ -11,6 +11,7 @@ use App\Http\Requests\Admin\UpdateRoomStatusRequest;
 use App\Models\Room;
 use App\Models\RoomType;
 use App\Services\AuditService;
+use App\Services\RoomMediaService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
@@ -40,7 +41,7 @@ class RoomController extends Controller
         ]);
     }
 
-    public function store(StoreRoomRequest $request, AuditService $auditService): RedirectResponse
+    public function store(StoreRoomRequest $request, AuditService $auditService, RoomMediaService $roomMediaService): RedirectResponse
     {
         $room = Room::query()->create($request->safe()->only([
             'room_type_id',
@@ -49,6 +50,8 @@ class RoomController extends Controller
             'status',
             'description',
         ]));
+
+        $this->storePhoto($request, $room, $roomMediaService);
 
         $auditService->log(AuditAction::AdminChange, $room, [
             'entity' => 'room',
@@ -67,13 +70,13 @@ class RoomController extends Controller
 
         return view('admin.rooms.edit', [
             'hotelName' => config('overlook.hotel_name'),
-            'room' => $room,
+            'room' => $room->load('photos'),
             'roomTypes' => RoomType::query()->orderBy('name')->get(),
             'statuses' => RoomStatus::cases(),
         ]);
     }
 
-    public function update(UpdateRoomRequest $request, Room $room, AuditService $auditService): RedirectResponse
+    public function update(UpdateRoomRequest $request, Room $room, AuditService $auditService, RoomMediaService $roomMediaService): RedirectResponse
     {
         $room->fill($request->safe()->only([
             'room_type_id',
@@ -83,6 +86,8 @@ class RoomController extends Controller
             'description',
         ]));
         $room->save();
+
+        $this->storePhoto($request, $room, $roomMediaService);
 
         $auditService->log(AuditAction::AdminChange, $room, [
             'entity' => 'room',
@@ -108,5 +113,28 @@ class RoomController extends Controller
         ]);
 
         return back()->with('status', __('admin.rooms_status_updated'));
+    }
+
+    private function storePhoto(
+        StoreRoomRequest|UpdateRoomRequest $request,
+        Room $room,
+        RoomMediaService $roomMediaService,
+    ): void {
+        $photo = $request->file('photo');
+
+        if ($photo === null) {
+            return;
+        }
+
+        $room->loadMissing('roomType');
+
+        $hasPrimary = $room->photos()->where('is_primary', true)->exists();
+
+        $room->photos()->create([
+            'path' => $roomMediaService->storePublicImage($photo, 'room-photos'),
+            'alt_text' => __('reservations.photo_alt', ['name' => $room->roomType?->name ?? $room->number]),
+            'sort_order' => (int) $room->photos()->max('sort_order') + 1,
+            'is_primary' => ! $hasPrimary,
+        ]);
     }
 }

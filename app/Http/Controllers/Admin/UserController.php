@@ -40,6 +40,7 @@ class UserController extends Controller
             ...$request->safe()->only(['name', 'email', 'phone']),
             'password' => $request->validated('password'),
             'role' => $request->enum('role', UserRole::class),
+            'email_verified_at' => now(),
         ]);
 
         $auditService->log(AuditAction::AdminChange, $user, [

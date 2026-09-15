@@ -6,12 +6,15 @@ use App\Http\Controllers\Admin\RoomTypeController as AdminRoomTypeController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Api\ConversationController as ApiConversationController;
 use App\Http\Controllers\Api\NotificationController as ApiNotificationController;
+use App\Http\Controllers\Auth\EmailVerificationNotificationController;
+use App\Http\Controllers\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\GoogleAuthController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\Guest\HomeController;
 use App\Http\Controllers\Guest\NotificationController;
 use App\Http\Controllers\Guest\ReservationController;
@@ -55,6 +58,14 @@ Route::post('/logout', [LogoutController::class, 'destroy'])
     ->name('logout');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/email/verify', EmailVerificationPromptController::class)->name('verification.notice');
+    Route::get('/email/verify/{id}/{hash}', VerifyEmailController::class)
+        ->middleware(['signed', 'throttle:6,1'])
+        ->name('verification.verify');
+    Route::post('/email/verification-notification', [EmailVerificationNotificationController::class, 'store'])
+        ->middleware('throttle:6,1')
+        ->name('verification.send');
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::post('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password');
@@ -67,7 +78,7 @@ Route::prefix('guest')->name('guest.')->group(function () {
     Route::get('/reservations/results', [ReservationController::class, 'results'])->name('reservations.results');
     Route::get('/reservations/rooms/{roomType:slug}', [ReservationController::class, 'showRoom'])->name('reservations.rooms.show');
 
-    Route::middleware('auth')->group(function () {
+    Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/reservations/checkout/{room}', [ReservationController::class, 'checkout'])->name('reservations.checkout');
         Route::post('/reservations', [ReservationController::class, 'store'])->name('reservations.store');
         Route::get('/reservations', [ReservationController::class, 'index'])->name('reservations.index');
@@ -124,6 +135,8 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::post('/users/{user}', [AdminUserController::class, 'update'])->name('users.update');
 
     Route::get('/room-types', [AdminRoomTypeController::class, 'index'])->name('room-types.index');
+    Route::get('/room-types/create', [AdminRoomTypeController::class, 'create'])->name('room-types.create');
+    Route::post('/room-types', [AdminRoomTypeController::class, 'store'])->name('room-types.store');
     Route::get('/room-types/{roomType}/edit', [AdminRoomTypeController::class, 'edit'])->name('room-types.edit');
     Route::post('/room-types/{roomType}', [AdminRoomTypeController::class, 'update'])->name('room-types.update');
 });

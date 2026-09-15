@@ -19,6 +19,7 @@ php artisan migrate --seed
 npm install
 npm run build
 php artisan serve
+php artisan storage:link
 ```
 
 ## Google OAuth
@@ -59,7 +60,13 @@ Las cuentas demo del seeder inician sesión con correo y contraseña. Los huésp
 
 ### Correo (restablecer contraseña)
 
-En local, `MAIL_MAILER=log` escribe el enlace en `storage/logs/laravel.log`. El correo usa la plantilla `resources/views/mail/auth/reset-password.blade.php` y sale desde `MAIL_FROM_ADDRESS`.
+En local, `MAIL_MAILER=log` escribe los correos en `storage/logs/laravel.log`. Plantillas con marca Overlook:
+
+- Restablecer contraseña: `resources/views/mail/auth/reset-password.blade.php`
+- Verificar correo: `resources/views/mail/auth/verify-email.blade.php`
+- Confirmación, cancelación y recordatorio de entrega: `resources/views/mail/stay/`
+
+Salen desde `MAIL_FROM_ADDRESS`. Las cuentas Google llegan ya verificadas; las de correo/contraseña deben confirmar el enlace.
 
 Para producción configura SMTP (o el mailer que inyecte Laravel Cloud):
 
