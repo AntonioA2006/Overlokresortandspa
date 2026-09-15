@@ -45,9 +45,11 @@ class ReservationRoomShowTest extends TestCase
             'alt_text' => 'Suite Ocean View — Overlook Resort & Spa',
         ]);
 
+        $params = $this->searchParams();
+
         $response = $this->get(route('guest.reservations.rooms.show', array_merge(
             ['roomType' => $roomType->slug],
-            $this->searchParams(),
+            $params,
         )));
 
         $response->assertOk();
@@ -59,8 +61,7 @@ class ReservationRoomShowTest extends TestCase
         $response->assertSee('Reservar');
         $response->assertSee('images/landing/room.jpg', false);
         $response->assertSee('guest/reservations/checkout/'.$room->id, false);
-        $response->assertSee('check_in_date=2026-09-17', false);
-        $response->assertSee('check_in_date=2026-09-17', false);
+        $response->assertSee('check_in_date='.$params['check_in_date'], false);
         $response->assertDontSee('Detalle próximamente');
     }
 

@@ -10,6 +10,8 @@ abstract class TestCase extends BaseTestCase
     {
         parent::setUp();
 
+        $this->withoutVite();
+
         session()->forget('locale');
         app()->setLocale(config('app.locale'));
     }

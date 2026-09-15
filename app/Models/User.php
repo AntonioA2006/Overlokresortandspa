@@ -68,4 +68,14 @@ class User extends Authenticatable
     {
         return $this->hasRole(UserRole::Reception, UserRole::Support, UserRole::Admin);
     }
+
+    public function hasPassword(): bool
+    {
+        return filled($this->password);
+    }
+
+    public function isGoogleAccount(): bool
+    {
+        return $this->auth_provider === AuthProvider::Google;
+    }
 }

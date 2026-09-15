@@ -22,6 +22,7 @@ class ReservationService
         private AuditService $auditService,
         private ReservationStateMachine $stateMachine,
         private ReservationTokenService $tokenService,
+        private NotificationService $notificationService,
     ) {}
 
     public function buildIdempotencyKey(
@@ -122,6 +123,7 @@ class ReservationService
 
         if ($reservation->status === ReservationStatus::Confirmed) {
             $this->tokenService->ensureActiveToken($reservation);
+            $this->notificationService->notifyReservationConfirmed($reservation);
         }
 
         return $reservation->refresh()->loadMissing(['room.roomType']);
@@ -188,6 +190,8 @@ class ReservationService
                 $lockedReservation,
                 ['code' => $lockedReservation->code],
             );
+
+            $this->notificationService->notifyReservationCancelled($lockedReservation);
 
             return $lockedReservation->refresh()->loadMissing(['room.roomType']);
         });

@@ -19,6 +19,7 @@ return [
     'rooms_from' => 'Desde',
     'rooms_per_night' => '/ noche',
     'rooms_guests' => 'Hasta :count huéspedes',
+    'view_room' => 'Ver habitación',
 
     'spa_eyebrow' => 'Spa & bienestar',
     'spa_title' => 'Calma con intención',

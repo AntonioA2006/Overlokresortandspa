@@ -3,6 +3,7 @@
 use App\Http\Middleware\EnsureCanonicalAppUrl;
 use App\Http\Middleware\EnsureUserRole;
 use App\Http\Middleware\SetLocale;
+use App\Services\Auth\PostLoginRedirectService;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -27,6 +28,16 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->web(append: [
             SetLocale::class,
         ]);
+
+        $middleware->redirectUsersTo(function () {
+            $user = auth()->user();
+
+            if ($user === null) {
+                return route('home');
+            }
+
+            return app(PostLoginRedirectService::class)->redirectPath($user);
+        });
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(

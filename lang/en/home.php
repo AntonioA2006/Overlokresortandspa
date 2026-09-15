@@ -19,6 +19,7 @@ return [
     'rooms_from' => 'From',
     'rooms_per_night' => '/ night',
     'rooms_guests' => 'Up to :count guests',
+    'view_room' => 'View room',
 
     'spa_eyebrow' => 'Spa & wellness',
     'spa_title' => 'Calm with intention',

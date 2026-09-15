@@ -99,7 +99,7 @@ class ReservationResultsTest extends TestCase
 
         $response->assertOk();
         $response->assertSee('guest/reservations/rooms/standard-comfort', false);
-        $response->assertSee('check_in_date=2026-09-17', false);
+        $response->assertSee('check_in_date='.$params['check_in_date'], false);
         $response->assertSee('children=1', false);
     }
 
