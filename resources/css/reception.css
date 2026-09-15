@@ -102,7 +102,42 @@
 
 .reception-camera video {
     width: 100%;
-    background: var(--color-beige);
+    background: var(--color-ink);
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    display: block;
+}
+
+.reception-camera__label,
+.reception-scan__fallback-title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+}
+
+.reception-camera__frame {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    background: var(--color-ink);
+}
+
+.reception-camera__frame::after {
+    content: "";
+    position: absolute;
+    inset: 12%;
+    border: 2px solid rgba(255, 253, 249, 0.7);
+    pointer-events: none;
+}
+
+.reception-camera__status {
+    min-height: 1.5em;
+    margin: 0;
+    color: var(--color-text-muted);
+}
+
+.reception-scan {
+    position: relative;
 }
 
 .admin-stat {

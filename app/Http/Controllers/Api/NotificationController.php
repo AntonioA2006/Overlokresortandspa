@@ -48,6 +48,7 @@ class NotificationController extends Controller
             'read_at' => $notification->read_at?->toIso8601String(),
             'sent_at' => $notification->sent_at?->toIso8601String(),
             'reservation_id' => $notification->reservation_id,
+            'action_url' => $notification->actionUrl($request->user()),
         ];
     }
 }

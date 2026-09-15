@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\AuthProvider;
 use App\Enums\UserRole;
+use App\Notifications\ResetPasswordNotification;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
@@ -77,5 +78,10 @@ class User extends Authenticatable
     public function isGoogleAccount(): bool
     {
         return $this->auth_provider === AuthProvider::Google;
+    }
+
+    public function sendPasswordResetNotification(#[\SensitiveParameter] $token): void
+    {
+        $this->notify(new ResetPasswordNotification($token));
     }
 }

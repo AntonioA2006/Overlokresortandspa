@@ -11,9 +11,9 @@ enum ConversationStatus: string
     public function label(): string
     {
         return match ($this) {
-            self::Open => 'Abierta',
-            self::Waiting => 'En espera',
-            self::Closed => 'Cerrada',
+            self::Open => __('support.status_open'),
+            self::Waiting => __('support.status_waiting'),
+            self::Closed => __('support.status_closed'),
         };
     }
 

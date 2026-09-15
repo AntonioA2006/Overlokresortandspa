@@ -42,7 +42,9 @@ Route::middleware('guest')->group(function () {
         ->middleware('throttle:password-email')
         ->name('password.email');
     Route::get('/reset-password/{token}', [ResetPasswordController::class, 'create'])->name('password.reset');
-    Route::post('/reset-password', [ResetPasswordController::class, 'store'])->name('password.update');
+    Route::post('/reset-password', [ResetPasswordController::class, 'store'])
+        ->middleware('throttle:password-reset')
+        ->name('password.update');
     Route::get('/auth/google/redirect', [GoogleAuthController::class, 'redirect'])->name('auth.google.redirect');
 });
 
@@ -91,6 +93,7 @@ Route::middleware('auth')->prefix('api')->name('api.')->group(function () {
 Route::middleware(['auth', 'role:reception,admin'])->prefix('reception')->name('reception.')->group(function () {
     Route::get('/', [ReceptionDashboardController::class, 'index'])->name('dashboard');
     Route::get('/scan', [CheckInController::class, 'scan'])->name('scan');
+    Route::post('/lookup', [CheckInController::class, 'lookup'])->name('lookup');
     Route::get('/check/{token}', [CheckInController::class, 'show'])->name('check');
     Route::post('/check/{token}/verify', [CheckInController::class, 'verify'])->name('check.verify');
     Route::post('/check/{token}/complete', [CheckInController::class, 'complete'])->name('check.complete');

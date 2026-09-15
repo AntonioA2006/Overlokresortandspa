@@ -29,23 +29,39 @@
             <div class="card" data-reveal>
                 <div class="card__body stack">
                     <p class="card__text">{{ __('reception.lookup_help') }}</p>
-                    <div class="form-group">
-                        <label class="form-label" for="reception-token">{{ __('reception.token_label') }}</label>
-                        <input
-                            id="reception-token"
-                            class="form-input"
-                            type="text"
-                            data-reception-token-input
-                            autocomplete="off"
-                            placeholder="{{ __('reception.token_placeholder') }}"
-                        >
-                    </div>
                     <div class="reception-toolbar">
-                        <button type="button" class="btn btn--primary" data-reception-lookup>
-                            {{ __('reception.lookup') }}
-                        </button>
-                        <a href="{{ route('reception.scan') }}" class="btn btn--ghost">{{ __('reception.scan_mode') }}</a>
+                        <a href="{{ route('reception.scan') }}" class="btn btn--primary">{{ __('reception.scan_mode') }}</a>
                     </div>
+                    <form
+                        method="POST"
+                        action="{{ route('reception.lookup') }}"
+                        class="stack"
+                        data-reception-lookup-form
+                    >
+                        @csrf
+                        <div class="form-group">
+                            <label class="form-label" for="reception-token">{{ __('reception.token_label') }}</label>
+                            <input
+                                id="reception-token"
+                                class="form-input"
+                                type="text"
+                                name="lookup"
+                                data-reception-token-input
+                                autocomplete="off"
+                                required
+                                value="{{ old('lookup') }}"
+                                placeholder="{{ __('reception.token_placeholder') }}"
+                            >
+                            @error('lookup')
+                                <p class="form-error">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div class="reception-toolbar">
+                            <button type="submit" class="btn btn--secondary" data-reception-lookup>
+                                {{ __('reception.lookup') }}
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
 

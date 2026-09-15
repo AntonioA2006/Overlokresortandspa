@@ -31,6 +31,12 @@ return [
     'reset_title' => 'New password',
     'reset_subtitle' => 'Choose a password for your Overlook account.',
     'reset_password' => 'Save password',
+    'reset_mail_subject' => 'Reset your password — :hotel',
+    'reset_mail_heading' => 'Reset your password',
+    'reset_mail_intro' => 'Hello :name, we received a request to reset the password for your :hotel account.',
+    'reset_mail_expire' => 'This link expires in :count minutes.',
+    'reset_mail_ignore' => 'If you did not request this change, you can ignore this message.',
+    'reset_mail_regards' => 'Regards',
     'failed' => 'These credentials do not match our records.',
     'throttle' => 'Too many attempts. Please try again in :seconds seconds.',
 

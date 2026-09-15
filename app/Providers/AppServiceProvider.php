@@ -61,6 +61,12 @@ class AppServiceProvider extends ServiceProvider
             ));
         });
 
+        RateLimiter::for('password-reset', function (Request $request) {
+            return Limit::perMinute(5)->by(Str::transliterate(
+                Str::lower($request->string('email')).'|'.$request->ip()
+            ));
+        });
+
         View::composer('components.premium-header', function ($view): void {
             $user = auth()->user();
 

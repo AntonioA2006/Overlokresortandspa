@@ -2,8 +2,10 @@
 
 namespace Tests\Feature\Guest;
 
+use App\Enums\ConversationStatus;
 use App\Enums\NotificationType;
 use App\Enums\UserRole;
+use App\Models\Conversation;
 use App\Models\Room;
 use App\Models\RoomType;
 use App\Models\User;
@@ -57,6 +59,46 @@ class NotificationsTest extends TestCase
             ->assertRedirect();
 
         $this->assertNotNull($notification->fresh()->read_at);
+    }
+
+    public function test_confirmation_notification_links_to_the_reservation(): void
+    {
+        $user = User::factory()->create(['role' => UserRole::Guest]);
+        $room = Room::factory()->for(RoomType::factory()->create(['max_guests' => 4]))->create();
+        $checkIn = Carbon::today()->addDays(4);
+        $checkOut = Carbon::today()->addDays(6);
+        $service = app(ReservationService::class);
+        $key = $service->buildIdempotencyKey($user, $room, $checkIn, $checkOut, 2);
+        $reservation = $service->create($user, $room, $checkIn, $checkOut, 2, $key);
+
+        $this->actingAs($user)
+            ->get(route('guest.notifications.index'))
+            ->assertSee('Ver reservación')
+            ->assertSee(route('guest.reservations.show', $reservation), false);
+    }
+
+    public function test_support_notification_links_staff_to_the_conversation(): void
+    {
+        $guest = User::factory()->create(['role' => UserRole::Guest]);
+        $agent = User::factory()->create(['role' => UserRole::Support]);
+        $conversation = Conversation::query()->create([
+            'user_id' => $guest->id,
+            'status' => ConversationStatus::Waiting,
+        ]);
+        UserNotification::query()->create([
+            'user_id' => $agent->id,
+            'type' => NotificationType::SupportMessage,
+            'title' => 'Nuevo mensaje de soporte',
+            'message' => '¿A qué hora es el spa?',
+            'dedupe_key' => 'support_message:staff-link:'.$conversation->id,
+            'data' => ['conversation_id' => $conversation->id],
+            'sent_at' => now(),
+        ]);
+
+        $this->actingAs($agent)
+            ->get(route('guest.notifications.index'))
+            ->assertSee('Abrir chat')
+            ->assertSee(route('support.conversations.show', $conversation), false);
     }
 
     public function test_guest_cannot_mark_another_users_notification(): void

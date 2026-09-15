@@ -93,6 +93,7 @@ return [
     'qr_instructions' => 'Presenta este código en recepción para validar tu reservación.',
     'qr_alt' => 'Código QR de check-in para la reservación :code',
     'qr_reception_note' => 'El QR dirige al equipo de recepción a tu reservación de forma segura.',
+    'qr_code_fallback' => 'Si el QR no carga, dicta este código en recepción: :code',
     'view_my_stays' => 'Ver mis estancias',
     'guests_count_label' => '{1} :count huésped|[2,*] :count huéspedes',
 

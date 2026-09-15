@@ -40,11 +40,20 @@
                                     {{ $notification->sent_at?->timezone(config('overlook.timezone'))->format('d M Y H:i') }}
                                 </p>
                             </div>
-                            @if ($notification->read_at === null)
-                                <form method="POST" action="{{ route('guest.notifications.read', $notification) }}">
-                                    @csrf
-                                    <button type="submit" class="btn btn--ghost btn--small">{{ __('notifications.mark_read') }}</button>
-                                </form>
+                            @if ($notification->read_at === null || $notification->actionUrl(auth()->user()))
+                                <div class="notification-item__actions">
+                                    @if ($notification->read_at === null)
+                                        <form method="POST" action="{{ route('guest.notifications.read', $notification) }}">
+                                            @csrf
+                                            <button type="submit" class="btn btn--ghost btn--small">{{ __('notifications.mark_read') }}</button>
+                                        </form>
+                                    @endif
+                                    @if ($notification->actionUrl(auth()->user()))
+                                        <a class="btn btn--secondary btn--small" href="{{ $notification->actionUrl(auth()->user()) }}">
+                                            {{ $notification->reservation_id ? __('notifications.open_reservation') : __('notifications.open_support') }}
+                                        </a>
+                                    @endif
+                                </div>
                             @endif
                         </li>
                     @endforeach

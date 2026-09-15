@@ -23,6 +23,9 @@ return [
     'reply_sent' => 'Respuesta enviada.',
     'close' => 'Cerrar conversación',
     'conversation_closed' => 'Conversación cerrada.',
+    'status_open' => 'Abierta',
+    'status_waiting' => 'En espera',
+    'status_closed' => 'Cerrada',
     'errors' => [
         'closed' => 'Esta conversación ya está cerrada.',
         'forbidden' => 'No tienes permiso para esta conversación.',
